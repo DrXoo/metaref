@@ -1,0 +1,20 @@
+{
+  "name": "metaref",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tsc",
+    "deploy": "sls deploy",
+    "start": "ts-node src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.1555.0",
+    "ts-node": "^10.9.2"
+  }
+}
