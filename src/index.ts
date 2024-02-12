@@ -1,21 +1,14 @@
 import 'dotenv/config'
 import { Handler } from 'aws-lambda';
-import { ExampleDialog } from './models/dialogs/exampleDialog';
 import { Telegraf } from 'telegraf';
-import { message } from 'telegraf/filters'
+import { StartMenu } from './startMenu';
+import { RequestReferralMenu } from './requestReferralMenu';
 
 export const handler: Handler = async (event, context) => {
     const bot = new Telegraf(process.env.TOKEN!)
 
-    const exampleDialog = new ExampleDialog();
-
-    bot.command(exampleDialog.commandTrigger, async (ctx) => {
-        await ctx.reply(exampleDialog.currentInteraction().message);
-    });
-
-    bot.on(message('text'), async (ctx) => {
-        await exampleDialog.processMessage(ctx, ctx.message.text);
-    });
+    new StartMenu(bot);
+    new RequestReferralMenu(bot);
 
     bot.launch();
 

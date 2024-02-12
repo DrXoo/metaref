@@ -1,0 +1,300 @@
+<mxfile host="app.diagrams.net" modified="2024-02-12T22:28:58.461Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0" etag="-XcwQ4WCJ__ejCthRpuL" version="23.1.3" type="device">
+  <diagram name="Página-1" id="gRAc6DC5ic1OgEglpM_k">
+    <mxGraphModel dx="1973" dy="1835" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-3" value="/start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_2;whiteSpace=wrap;fontSize=30;" vertex="1" parent="1">
+          <mxGeometry x="660" y="200" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-3" target="Dy9JQPeD_0FElPdL8ptE-9">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="440" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-69" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-9" target="Dy9JQPeD_0FElPdL8ptE-68">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-70" value="Click on Post Referral" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-69">
+          <mxGeometry x="0.1758" y="-2" relative="1" as="geometry">
+            <mxPoint x="2" y="-22" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-9" value="Referrals Menu" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="660" y="360" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-42" value="&lt;h1&gt;Start Menu&lt;/h1&gt;&lt;p&gt;(palabrería que Trueno se inventará).&lt;br&gt;&lt;br&gt;Botones: Dar referido, Pedir referido, Soporte&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="770" y="350" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-46" target="Dy9JQPeD_0FElPdL8ptE-76">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-54" value="Click on Device" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-52">
+          <mxGeometry x="-0.0319" y="1" relative="1" as="geometry">
+            <mxPoint x="-1" y="34" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-46" target="Dy9JQPeD_0FElPdL8ptE-55">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-67" value="Click on Game" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-56">
+          <mxGeometry x="0.0212" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-46" value="Request &lt;br style=&quot;font-size: 17px;&quot;&gt;Referral &lt;br style=&quot;font-size: 17px;&quot;&gt;Menu" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=17;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="270" y="560" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-9" target="Dy9JQPeD_0FElPdL8ptE-46">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-48" value="Click on Request Referral" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-47">
+          <mxGeometry x="0.2227" y="2" relative="1" as="geometry">
+            <mxPoint x="-2" y="28" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-49" value="&lt;h1&gt;Request Referral Menu&lt;/h1&gt;&lt;p&gt;(palabrería que Trueno se inventará).&lt;br&gt;&lt;br&gt;Botones: visor o videojuego&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="386" y="460" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-50" value="Give Device Referral" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="476" y="929.5" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-59" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-55" target="Dy9JQPeD_0FElPdL8ptE-58">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="330" y="900" />
+              <mxPoint x="330" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-63" value="Game name" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-59">
+          <mxGeometry x="-0.2389" y="1" relative="1" as="geometry">
+            <mxPoint x="-1" y="8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-55" value="Request Game name" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=16;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry x="270" y="790" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-64" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-58" target="Dy9JQPeD_0FElPdL8ptE-65">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="330" y="1189.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-66" value="Game found" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-64">
+          <mxGeometry x="0.0083" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-58" value="Search" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.merge_or_storage;whiteSpace=wrap;fontSize=16;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=middle;spacingBottom=23;" vertex="1" parent="1">
+          <mxGeometry x="282.5" y="1029.5" width="95" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-60" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.004;entryY=0.624;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-58" target="Dy9JQPeD_0FElPdL8ptE-55">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="1050" />
+              <mxPoint x="200" y="846" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-62" value="Game Not found" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-60">
+          <mxGeometry x="0.0512" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-65" value="Give Game Referral" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="280" y="1169.5" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-68" value="Request Referral Link/links" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=16;spacingTop=13;" vertex="1" parent="1">
+          <mxGeometry x="650" y="630" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-72" value="Store" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontSize=17;spacingTop=9;" vertex="1" parent="1">
+          <mxGeometry x="680" y="830" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-73" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-68" target="Dy9JQPeD_0FElPdL8ptE-72">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="710" y="979.14" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-76" target="Dy9JQPeD_0FElPdL8ptE-50">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-76" value="Search on Chain" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.multi-document;whiteSpace=wrap;fontSize=14;spacingRight=7;" vertex="1" parent="1">
+          <mxGeometry x="482" y="760" width="88" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-78" target="Dy9JQPeD_0FElPdL8ptE-85">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="570" y="1350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-82" value="Click on Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-81">
+          <mxGeometry x="-0.2265" relative="1" as="geometry">
+            <mxPoint y="11" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-83" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-78" target="Dy9JQPeD_0FElPdL8ptE-88">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="750" y="1230" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-84" value="Click on No" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-83">
+          <mxGeometry x="0.2574" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-78" value="Did it work menu" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=19;spacingTop=11;" vertex="1" parent="1">
+          <mxGeometry x="466" y="1149.5" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-79" value="&lt;h1&gt;Did it work Menu&lt;/h1&gt;&lt;p&gt;(palabrería que Trueno se inventará).&lt;br&gt;&lt;br&gt;Botones: Si o No&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="590" y="1040" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-80" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-50" target="Dy9JQPeD_0FElPdL8ptE-78">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-85" value="Request Meta UserName" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=16;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry x="466" y="1370" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-86" value="Store user in Chain" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontSize=17;spacingTop=9;" vertex="1" parent="1">
+          <mxGeometry x="469" y="1530" width="114" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-87" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-85" target="Dy9JQPeD_0FElPdL8ptE-86">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-88" value="Show Message to help" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=16;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry x="775" y="1164.5" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-93" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-88" target="Dy9JQPeD_0FElPdL8ptE-78">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="950" y="1209" />
+              <mxPoint x="950" y="1040" />
+              <mxPoint x="526" y="1040" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-96" value="/start" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.start_2;whiteSpace=wrap;fontSize=30;" vertex="1" parent="1">
+          <mxGeometry x="1689.9099999999999" y="220" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-97" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-96" target="Dy9JQPeD_0FElPdL8ptE-100">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1469.9099999999999" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-98" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-100" target="Dy9JQPeD_0FElPdL8ptE-120">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-99" value="Click on Post Referral" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-98">
+          <mxGeometry x="0.1758" y="-2" relative="1" as="geometry">
+            <mxPoint x="2" y="-22" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-100" value="Referrals Menu" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1689.9099999999999" y="380" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-101" value="&lt;h1&gt;Start Menu&lt;/h1&gt;&lt;p&gt;(palabrería que Trueno se inventará).&lt;br&gt;&lt;br&gt;Botones: Dar referido, Pedir referido, Soporte&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1799.9099999999999" y="370" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-106" target="Dy9JQPeD_0FElPdL8ptE-124">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-103" value="Click on Device" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-102">
+          <mxGeometry x="-0.0319" y="1" relative="1" as="geometry">
+            <mxPoint x="-24" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-104" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-106" target="Dy9JQPeD_0FElPdL8ptE-113">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-105" value="Click on Game" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-104">
+          <mxGeometry x="0.0212" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-106" value="Request &lt;br style=&quot;font-size: 17px;&quot;&gt;Referral &lt;br style=&quot;font-size: 17px;&quot;&gt;Menu" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.decision;whiteSpace=wrap;fontSize=17;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="1299.91" y="580" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-107" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-100" target="Dy9JQPeD_0FElPdL8ptE-106">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-108" value="Click on Request Referral" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-107">
+          <mxGeometry x="0.2227" y="2" relative="1" as="geometry">
+            <mxPoint x="-2" y="28" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-109" value="&lt;h1&gt;Request Referral Menu&lt;/h1&gt;&lt;p&gt;(palabrería que Trueno se inventará).&lt;br&gt;&lt;br&gt;Botones: visor o videojuego&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="1415.9099999999999" y="480" width="190" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-110" value="Give Device Referral" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1505.9099999999999" y="949.5" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-111" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-113" target="Dy9JQPeD_0FElPdL8ptE-116">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1359.9099999999999" y="920" />
+              <mxPoint x="1359.9099999999999" y="920" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-112" value="Game name" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-111">
+          <mxGeometry x="-0.2389" y="1" relative="1" as="geometry">
+            <mxPoint x="-1" y="8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-113" value="Request Game name" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=16;spacingTop=18;" vertex="1" parent="1">
+          <mxGeometry x="1299.91" y="810" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-114" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-116" target="Dy9JQPeD_0FElPdL8ptE-119">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1359.9099999999999" y="1209.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-115" value="Game found" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-114">
+          <mxGeometry x="0.0083" y="-2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-116" value="Search" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.merge_or_storage;whiteSpace=wrap;fontSize=16;labelPosition=center;verticalLabelPosition=middle;align=center;verticalAlign=middle;spacingBottom=23;" vertex="1" parent="1">
+          <mxGeometry x="1312.41" y="1049.5" width="95" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-117" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.004;entryY=0.624;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-116" target="Dy9JQPeD_0FElPdL8ptE-113">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1229.91" y="1070" />
+              <mxPoint x="1229.91" y="866" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-118" value="Game Not found" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontSize=17;" vertex="1" connectable="0" parent="Dy9JQPeD_0FElPdL8ptE-117">
+          <mxGeometry x="0.0512" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-119" value="Give Game Referral" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;fontSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1309.91" y="1189.5" width="100" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-120" value="Request Referral Link/links" style="html=1;strokeWidth=2;shape=manualInput;whiteSpace=wrap;rounded=1;size=26;arcSize=11;fontSize=16;spacingTop=13;" vertex="1" parent="1">
+          <mxGeometry x="1679.9099999999999" y="650" width="120" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-121" value="Store" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.database;whiteSpace=wrap;fontSize=17;spacingTop=9;" vertex="1" parent="1">
+          <mxGeometry x="1709.9099999999999" y="850" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-122" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-120" target="Dy9JQPeD_0FElPdL8ptE-121">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1739.9099999999999" y="999.14" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-123" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Dy9JQPeD_0FElPdL8ptE-124" target="Dy9JQPeD_0FElPdL8ptE-110">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-124" value="Select random" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.multi-document;whiteSpace=wrap;fontSize=14;spacingRight=7;" vertex="1" parent="1">
+          <mxGeometry x="1511.9099999999999" y="780" width="88" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-137" value="Alternativa 1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=60;" vertex="1" parent="1">
+          <mxGeometry x="180" y="140" width="800" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Dy9JQPeD_0FElPdL8ptE-138" value="Alternativa 2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=60;" vertex="1" parent="1">
+          <mxGeometry x="1299.91" y="140" width="800" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
