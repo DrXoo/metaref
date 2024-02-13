@@ -1,5 +1,6 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { ParseMode } from "telegraf/typings/core/types/typegram";
+import { onMessage } from './onMessageEventEmitter';
 
 export class RequestReferralMenu {
 
@@ -18,12 +19,21 @@ export class RequestReferralMenu {
                   Markup.button.callback('Volver', 'request_referral')
                 ]),
             });
+            onMessage.subscribe(this.manageOnMessage)
         });
 
         bot.action('request_referral', async (ctx) => {
             const menuUI = this.menuUI();
             ctx.editMessageText(menuUI.text,menuUI.properties);
         });
+    }
+
+    private async manageOnMessage(context: Context, text: string)
+    {
+        onMessage.unSubscribe(this.manageOnMessage);
+
+        //await context.telegram.deleteMessage(context.chat!.id, context.message?.message_id!);
+        await context.telegram.editMessageText(context.chat!.id, context.message?.message_id! - 1, undefined, "Searching....");
     }
 
     private menuUI : () => { text: string, properties: { parse_mode?: ParseMode | undefined }} = () => {
