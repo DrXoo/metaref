@@ -1,8 +1,16 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { ParseMode } from "telegraf/typings/core/types/typegram";
-import { onMessage } from './onMessageEventEmitter';
 
 export class RequestReferralMenu {
+    
+    // Block any onMessage process until we are actually listening
+    private listenToOnMessage : boolean = false;
+
+    // I am afraid that multiple people can request a game name at the same time. 
+    // this means that the messageId for the editMessage on the onMessage event
+    // will be different for those two chats
+    // using this map we can save each chatId to its bot messageId
+    private chatIdToBotMessageId : Map<number, number> = new Map<number, number>();
 
     constructor(bot: Telegraf) {
         bot.action('device', async (ctx) => {
@@ -19,21 +27,34 @@ export class RequestReferralMenu {
                   Markup.button.callback('Volver', 'request_referral')
                 ]),
             });
-            onMessage.subscribe(this.manageOnMessage)
+            this.listenToOnMessage = true;
+            this.chatIdToBotMessageId.set(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!)
         });
 
         bot.action('request_referral', async (ctx) => {
             const menuUI = this.menuUI();
-            ctx.editMessageText(menuUI.text,menuUI.properties);
+            await ctx.editMessageText(menuUI.text,menuUI.properties);
         });
     }
 
-    private async manageOnMessage(context: Context, text: string)
+    public async manageOnMessage(context: Context, text: string)
     {
-        onMessage.unSubscribe(this.manageOnMessage);
-
-        //await context.telegram.deleteMessage(context.chat!.id, context.message?.message_id!);
-        await context.telegram.editMessageText(context.chat!.id, context.message?.message_id! - 1, undefined, "Searching....");
+        if(this.listenToOnMessage) {
+            this.listenToOnMessage = false;
+            const message_id = this.chatIdToBotMessageId.get(context.chat?.id!);
+            await context.telegram.editMessageText(
+                context.chat!.id, 
+                message_id, 
+                undefined, 
+                `The game that you wrote is: ${text}`, 
+                {
+                    ...Markup.inlineKeyboard([
+                      Markup.button.callback('Volver', 'request_referral'),
+                      Markup.button.callback('Volver al inicio', 'return_start')
+                    ]),
+                
+                });
+        }
     }
 
     private menuUI : () => { text: string, properties: { parse_mode?: ParseMode | undefined }} = () => {

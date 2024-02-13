@@ -6,7 +6,8 @@ export class StartMenu {
     constructor(bot: Telegraf) {
         bot.command("start", async (ctx) => {
             const startMessage = this.menuUI();
-            ctx.reply(startMessage.text, startMessage.properties);
+            await ctx.deleteMessage(ctx.message.message_id);
+            await ctx.reply(startMessage.text, startMessage.properties);
         });
 
         bot.action('give', async (ctx) => {
@@ -43,7 +44,7 @@ export class StartMenu {
 
         bot.action('return_start', async (ctx) => {
             const startMessage = this.menuUI();
-            ctx.editMessageText(startMessage.text, startMessage.properties);
+            await ctx.editMessageText(startMessage.text, startMessage.properties);
         })
     }
 
