@@ -8,15 +8,17 @@ export const handler: Handler = async (event, context) => {
     const bot = new Telegraf(process.env.TOKEN!)
 
     new StartMenu(bot);
-    new RequestReferralMenu(bot);
+    const requestReferralMenu = new RequestReferralMenu(bot);
+
+    bot.on("text", async (ctx) => {       
+        await ctx.deleteMessage(ctx.message.message_id);
+        await requestReferralMenu.manageOnMessage(ctx, ctx.message.text);
+    });
 
     bot.launch();
 
     return context.logStreamName;
 };
-
-// interaccion entre usuario y bot
-// nodo raiz, siguiente nodo, nodo anterior
 
 // Test
 handler({}, { 
