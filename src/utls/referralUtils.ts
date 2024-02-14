@@ -1,4 +1,8 @@
 export function parseDeviceLink(link: string) : string | undefined {
+    if(!URL.canParse(link)) {
+        return undefined;
+    }
+    
     const segments = new URL(link).pathname.split('/');
     return segments[segments.length - 1];
 }

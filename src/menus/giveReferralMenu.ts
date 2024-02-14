@@ -2,6 +2,7 @@ import { Context, Markup, Telegraf } from "telegraf";
 import { Menu } from "./menu";
 import { ReferralType } from "../models/referralType";
 import { parseAppLink, parseDeviceLink } from "../utls/referralUtils";
+import { createUser } from "./../db/dbClient"
 
 export class GiveReferralMenu extends Menu {
     
@@ -12,7 +13,7 @@ export class GiveReferralMenu extends Menu {
         super();
 
         bot.action('give_device_referral', async (ctx) => {
-            await ctx.editMessageText('A continuación pega el enlace de referido de visor');
+            await ctx.editMessageText('A continuación escribe tu nombre de usuario de Meta');
 
             this.referralType = ReferralType.DEVICE;
             this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!)
@@ -46,12 +47,17 @@ export class GiveReferralMenu extends Menu {
     public async manageOnMessage(context: Context, messageId: number, text: string)
     {
         if(this.referralType == ReferralType.DEVICE) {
-            const userName = parseDeviceLink(text);
-            if(userName) {
-                await this.editMessageAtManageMessage(context, messageId, `Device Referral detected: ${userName}`);
+            const userName = text.trim();
+            if(userName.length > 0 && !userName.includes(" ")) {
+                var result = await createUser(userName);
+                if(result) {
+                    await this.editMessageAtManageMessage(context, messageId, `Referido de visor del usuario ${userName} ha sido añadido`);
+                }else {
+                    await this.editMessageAtManageMessage(context, messageId, `Usuario ya agregado`);
+                }
             }
             else {
-                await this.editMessageAtManageMessage(context, messageId, `No Device Referral detected`);
+                await this.editMessageAtManageMessage(context, messageId, `Formato incorrecto`);
             }
         } else if (this.referralType == ReferralType.APP) {
             const urls = text.match(this.urlRegex);
