@@ -1,19 +1,11 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { ParseMode } from "telegraf/typings/core/types/typegram";
+import { Menu } from "./menu";
 
-export class RequestReferralMenu {
-    
-    // Block any onMessage process until we are actually listening
-    private listenToOnMessage : boolean = false;
-
-    // I am afraid that multiple people can request a game name at the same time. 
-    // this means that the messageId for the editMessage on the onMessage event
-    // will be different for those two chats
-    // using this map we can save each chatId to its bot messageId
-    private chatIdToBotMessageId : Map<number, number> = new Map<number, number>();
-
-    constructor(bot: Telegraf) {
-        bot.action('device', async (ctx) => {
+export class RequestReferralMenu extends Menu {
+        constructor(bot: Telegraf) {
+        super();
+        bot.action('request_device_referral', async (ctx) => {
             await ctx.editMessageText('Go to Give referral device', {
                 ...Markup.inlineKeyboard([
                   Markup.button.callback('Volver', 'request_referral')
@@ -21,14 +13,13 @@ export class RequestReferralMenu {
             });
         });
 
-        bot.action('game', async (ctx) => {
+        bot.action('request_game_referral', async (ctx) => {
             await ctx.editMessageText('Introduce el nombre del juego', {
                 ...Markup.inlineKeyboard([
                   Markup.button.callback('Volver', 'request_referral')
                 ]),
             });
-            this.listenToOnMessage = true;
-            this.chatIdToBotMessageId.set(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!)
+            this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!)
         });
 
         bot.action('request_referral', async (ctx) => {
@@ -37,24 +28,20 @@ export class RequestReferralMenu {
         });
     }
 
-    public async manageOnMessage(context: Context, text: string)
+    public async manageOnMessage(context: Context, messageId: number, text: string)
     {
-        if(this.listenToOnMessage) {
-            this.listenToOnMessage = false;
-            const message_id = this.chatIdToBotMessageId.get(context.chat?.id!);
-            await context.telegram.editMessageText(
-                context.chat!.id, 
-                message_id, 
-                undefined, 
-                `The game that you wrote is: ${text}`, 
-                {
-                    ...Markup.inlineKeyboard([
-                      Markup.button.callback('Volver', 'request_referral'),
-                      Markup.button.callback('Volver al inicio', 'return_start')
-                    ]),
-                
-                });
-        }
+        await context.telegram.editMessageText(
+            context.chat!.id, 
+            messageId, 
+            undefined, 
+            `The game that you wrote is: ${text}`, 
+            {
+                ...Markup.inlineKeyboard([
+                  Markup.button.callback('Volver', 'request_referral'),
+                  Markup.button.callback('Volver al inicio', 'return_start')
+                ]),
+            
+            });
     }
 
     private menuUI : () => { text: string, properties: { parse_mode?: ParseMode | undefined }} = () => {
@@ -68,8 +55,8 @@ export class RequestReferralMenu {
         `, properties: {
             parse_mode: 'MarkdownV2',
             ...Markup.inlineKeyboard([[
-                Markup.button.callback('Visor', 'device'),
-                Markup.button.callback('Juego', 'game'),
+                Markup.button.callback('Visor', 'request_device_referral'),
+                Markup.button.callback('Juego', 'request_game_referral'),
             ], [ Markup.button.callback('Volver', 'return_start') ]]),
         }}
     }

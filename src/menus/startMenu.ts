@@ -10,20 +10,6 @@ export class StartMenu {
             await ctx.reply(startMessage.text, startMessage.properties);
         });
 
-        bot.action('give', async (ctx) => {
-            await ctx.editMessageText(`
-            📤 Ha seleccionado dar referidos
-
-            Este apartado está destinado a que pueda registrar sus enlaces para poder 
-            darlos a futuras personas que pidan referidos de las apps que nos proporcione
-
-            A continuación, seleccione si desea dar referido de visor o de alguna aplicación`, {
-                ...Markup.inlineKeyboard([
-                  Markup.button.callback('Volver', 'return_start')
-                ]),
-            });
-        });
-
         bot.action('information', async (ctx) => {
             await ctx.editMessageText(`
             💎 El programa de referidos de Meta, es un programa de recomendaciones entre amigos 
@@ -62,7 +48,7 @@ export class StartMenu {
         `, properties: {
             parse_mode: 'MarkdownV2',
             ...Markup.inlineKeyboard([[
-                Markup.button.callback('Dar', 'give'),
+                Markup.button.callback('Dar', 'give_referral'),
                 Markup.button.callback('Pedir', 'request_referral'),
             ], [ Markup.button.callback('Información', 'information') ]]),
         }}
