@@ -1,8 +1,8 @@
 import 'dotenv/config'
 import { Handler } from 'aws-lambda';
 import { Telegraf } from 'telegraf';
-import { StartMenu } from './startMenu';
-import { RequestReferralMenu } from './requestReferralMenu';
+import { StartMenu } from './menus/startMenu';
+import { RequestReferralMenu } from './menus/requestReferralMenu';
 
 export const handler: Handler = async (event, context) => {
     const bot = new Telegraf(process.env.TOKEN!)
