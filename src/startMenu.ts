@@ -61,11 +61,10 @@ export class StartMenu {
         En caso de que este informado, seleccione la opción que mejor le corresponda
         `, properties: {
             parse_mode: 'MarkdownV2',
-            ...Markup.inlineKeyboard([
+            ...Markup.inlineKeyboard([[
                 Markup.button.callback('Dar', 'give'),
                 Markup.button.callback('Pedir', 'request_referral'),
-                Markup.button.callback('Información', 'information'),
-            ]),
+            ], [ Markup.button.callback('Información', 'information') ]]),
         }}
     }
 }

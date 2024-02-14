@@ -67,11 +67,10 @@ export class RequestReferralMenu {
             A continuación, seleccione si desea recibir referido de visor o de alguna aplicación
         `, properties: {
             parse_mode: 'MarkdownV2',
-            ...Markup.inlineKeyboard([
+            ...Markup.inlineKeyboard([[
                 Markup.button.callback('Visor', 'device'),
                 Markup.button.callback('Juego', 'game'),
-                Markup.button.callback('Volver', 'return_start')
-            ]),
+            ], [ Markup.button.callback('Volver', 'return_start') ]]),
         }}
     }
 }
