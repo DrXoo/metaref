@@ -1,6 +1,6 @@
 import { DynamoDB } from "@aws-sdk/client-dynamodb";
 
-const client = new DynamoDB({ region: process.env.AWS_REGION });
+const client = new DynamoDB({ region: process.env.REGION });
 const tableName = process.env.DB_TABLE_NAME!
 
 interface Game {
