@@ -22,7 +22,7 @@ export class TelegramHandlerLambda extends Construct {
             code: Code.fromAsset('./../metaref-lambda/dist'),
             environment: {
               TOKEN: process.env.TOKEN!,
-              DB_TABLE_NAME: process.env.DB_TABLE_NAME!,
+              DB_TABLE_NAME: props.table.tableName!,
               REGION: process.env.REGION!
             },
           });
