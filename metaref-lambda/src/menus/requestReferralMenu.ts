@@ -1,6 +1,6 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { Menu } from "./menu";
-import { getRandomUser, searchGame } from "../db/dbClient";
+import { getRandomUser, searchGame } from "../aws/dbClient";
 
 export class RequestReferralMenu extends Menu {
     

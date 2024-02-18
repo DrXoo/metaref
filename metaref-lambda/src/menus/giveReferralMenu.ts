@@ -1,12 +1,11 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { Menu } from "./menu";
 import { ReferralType } from "../models/referralType";
-import { parseAppLink, parseDeviceLink } from "../utls/referralUtils";
-import { createUser } from "./../db/dbClient"
+import { parseAppLink } from "../utls/referralUtils";
+import { createUser } from "../aws/dbClient"
 
 export class GiveReferralMenu extends Menu {
     
-    private referralType: ReferralType | undefined;
     private urlRegex = /(https?:\/\/[^\s]+)/g;
 
     constructor(bot: Telegraf) {
@@ -15,15 +14,13 @@ export class GiveReferralMenu extends Menu {
         bot.action('give_device_referral', async (ctx) => {
             await ctx.editMessageText('A continuación escribe tu nombre de usuario de Meta');
 
-            this.referralType = ReferralType.DEVICE;
-            this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!)
+            this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!, { referralType: ReferralType.DEVICE.toString() })
         });
 
         bot.action('give_app_referral', async (ctx) => {
             await ctx.editMessageText('A continuación pega los enlaces de referidos de aplicaciones');
 
-            this.referralType = ReferralType.APP;
-            this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!)
+            this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!, { referralType: ReferralType.APP.toString() })
         });
 
         bot.action('give_referral', async (ctx) => {
@@ -44,12 +41,16 @@ export class GiveReferralMenu extends Menu {
         });
     }
 
-    public async manageOnMessage(context: Context, messageId: number, text: string)
+    public async manageOnMessage(context: Context, messageId: number, text: string, data?: Record<string, string>)
     {
-        if(this.referralType == ReferralType.DEVICE) {
+        if(data?.referralType == ReferralType.DEVICE.toString()) {
             const userName = text.trim();
             if(userName.length > 0 && !userName.includes(" ")) {
+
+                await context.telegram.editMessageText(context.chat!.id, messageId, undefined, `Procesando...`);
+
                 var result = await createUser(userName);
+
                 if(result) {
                     await this.editMessageAtManageMessage(context, messageId, `Referido de visor del usuario ${userName} ha sido añadido`);
                 }else {
@@ -59,7 +60,7 @@ export class GiveReferralMenu extends Menu {
             else {
                 await this.editMessageAtManageMessage(context, messageId, `Formato incorrecto`);
             }
-        } else if (this.referralType == ReferralType.APP) {
+        } else if (data?.referralType == ReferralType.APP.toString()) {
             const urls = text.match(this.urlRegex);
 
             if (urls && urls.length > 0) {

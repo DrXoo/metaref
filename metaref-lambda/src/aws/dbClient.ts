@@ -88,7 +88,8 @@ export async function getUser(userName: string): Promise<User | null> {
             ':sk': { S: userName } 
         },
         ProjectionExpression: 'sk'
-    })
+    });
+    
     const item = result.Items?.at(0)
 
     if(item == null){
