@@ -1,61 +1,8 @@
 import { DynamoDB } from "@aws-sdk/client-dynamodb";
+import { User } from "../types";
 
 const client = new DynamoDB({ region: process.env.REGION });
 const tableName = process.env.DB_TABLE_NAME!
-
-interface Game {
-    gameId: string;
-    gameName: string;
-    userId: string;
-}
-  
-interface User {
-    userId: string;
-}
-
-export async function searchGame(gameName: string): Promise<Game[]> {
-    const result = await client.query({
-        TableName: tableName,
-        KeyConditionExpression: 'pk= :pk AND begins_with(sk, :skPrefix)',
-        ExpressionAttributeValues: {
-            ':pk' : { S: 'Games'},
-            ':skPrefix': { S: gameName}
-        },
-        ProjectionExpression: 'sk, GameId, GameName',
-    });
-
-    return result.Items!.map(x => {
-        return {
-            gameId: x['GameId'].S,
-            gameName: x['GameName'].S,
-            userId: x['sk'].S!.split('_')[1]
-        } as Game
-    });
-}
-  
-export async function getGame(gameId: string): Promise<Game | null> {
-    const result = await client.query({
-        TableName: tableName,
-        IndexName: 'GameIdIndex',
-        KeyConditionExpression: 'pk= :pk AND GameId = :gameId',
-        ExpressionAttributeValues: {
-            ':pk' : { S: 'Games' },
-            ':gameId': { S: gameId } 
-        },
-        ProjectionExpression: 'sk, GameId, GameName'
-    })
-    const item = result.Items?.at(0)
-
-    if(item == null){
-        return null;
-    }
-
-    return {
-        gameId: item['GameId'].S,
-        gameName: item['GameName'].S,
-        userId: item['sk'].S!.split('_')[1]
-    } as Game
-}
   
 export async function getRandomUser(): Promise<User | null> {
     const result = await client.query({
@@ -104,8 +51,6 @@ export async function getUser(userName: string): Promise<User | null> {
 
 export async function createUser(userName: string) : Promise<boolean> {
     var existingUser = await getUser(userName);
-
-    console.log(existingUser);
 
     if(existingUser!=null) {
         return false;

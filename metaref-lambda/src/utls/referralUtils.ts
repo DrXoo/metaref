@@ -1,3 +1,18 @@
+const deviceReferralTemplate: string = "https://www.meta.com/referrals/link/";
+const appReferralTemplate: string = "https://www.oculus.com/appreferrals/USER/APP"
+
+export function buildAppUrl(userId: string, appId: string) : string{
+    return appReferralTemplate.replace('USER',userId).replace('APP', appId);
+}
+
+export function buildDeviceUrl(userId: string) : string {
+    return `${deviceReferralTemplate}${userId}`;
+}
+
+export function normalizeGameNameText(rawText: string) : string{
+    return rawText.trim().toLowerCase().replace(/\s/g, '');
+}
+
 export function parseDeviceLink(link: string) : string | undefined {
     if(!URL.canParse(link)) {
         return undefined;
@@ -16,7 +31,7 @@ export function parseAppLink(link: string) :  { userName: string | undefined, ap
 
     // Extract the values from the match
     const userName = match ? match[1] : undefined;
-    const appId = match ? match[2] : undefined;
+    const appId = match ? match[2] : '';
 
-    return { userName, appId };
+    return { userName, appId: normalizeGameNameText(appId) };
 }

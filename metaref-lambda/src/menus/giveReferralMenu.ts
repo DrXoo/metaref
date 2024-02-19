@@ -1,8 +1,8 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { Menu } from "./menu";
 import { ReferralType } from "../models/referralType";
-import { parseAppLink } from "../utls/referralUtils";
-import { createUser } from "../aws/dbClient"
+import { buildAppUrl, parseAppLink } from "../utls/referralUtils";
+import { createUser } from "../aws/db/user-repository";
 
 export class GiveReferralMenu extends Menu {
     
@@ -65,6 +65,9 @@ export class GiveReferralMenu extends Menu {
 
             if (urls && urls.length > 0) {
                 const appReferrals = urls.map(url => parseAppLink(url));
+
+                const pepe = appReferrals.map(x => buildAppUrl(x.userName!, x.appId!))
+
                 await this.editMessageAtManageMessage(context, messageId, `App Referrals detected: ${appReferrals.length}`);
             } else {
                 await this.editMessageAtManageMessage(context, messageId, `No app referrals detected`);
