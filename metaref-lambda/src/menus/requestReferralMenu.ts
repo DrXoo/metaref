@@ -13,7 +13,7 @@ export class RequestReferralMenu extends Menu {
             await ctx.editMessageText(
                 `Aquí tiene su referido
                 
-                ${buildDeviceUrl(randomUser!.userId)}
+                ${buildDeviceUrl(randomUser!.userName)}
             `, {
                 ...Markup.inlineKeyboard([
                   Markup.button.callback('Volver', 'request_referral')
@@ -33,7 +33,7 @@ export class RequestReferralMenu extends Menu {
         bot.action(/selected_referral-\w*,\w*$/, async (ctx) => {
             const data = ctx.match[0].split('-')[1].split(',');
             const usersId = await getUsersForGame(data[1]);
-            const randomUserId = usersId[Math.floor(Math.random() * usersId.length)].userId
+            const randomUserId = usersId[Math.floor(Math.random() * usersId.length)].userName
             const appReferral = buildAppUrl(randomUserId, data[1])
             await ctx.telegram.editMessageText(ctx.chat!.id, Number.parseInt(data[0]), undefined, 
 `

@@ -14,7 +14,7 @@ export async function getRandomUser(): Promise<User | null> {
         ProjectionExpression: 'sk',
     })
     const users = result.Items?.map(x => { return {
-        userId: x['sk'].S
+        userName: x['sk'].S
     } as User});
 
     if (users == null || users.length === 0) {
@@ -44,7 +44,7 @@ export async function getUser(userName: string): Promise<User | null> {
     }
 
     return {
-        userId: item['sk'].S!
+        userName: item['sk'].S!
     } as User
 }
 

@@ -1,5 +1,5 @@
 import { DynamoDB } from "@aws-sdk/client-dynamodb";
-import { Game, User } from "../types";
+import { Game, GameUser, User } from "../types";
 
 const client = new DynamoDB({ region: process.env.REGION });
 const tableName = process.env.DB_TABLE_NAME!
@@ -8,47 +8,28 @@ const tableName = process.env.DB_TABLE_NAME!
 export async function searchGame(gameName: string): Promise<Game[]> {
     const result = await client.query({
         TableName: tableName,
-        KeyConditionExpression: 'pk= :pk AND begins_with(sk, :gameName)',
+        IndexName: 'GameNameIndex',
+        KeyConditionExpression: 'pk= :pk AND begins_with(GameName, :gameName)',
         ExpressionAttributeValues: {
-            ':pk' : { S: 'UserGame'},
+            ':pk' : { S: 'Games'},
             ':gameName': { S: gameName}
         },
-        ProjectionExpression: 'sk, GameId',
+        ProjectionExpression: 'sk, GameName',
     });
 
     return result.Items!.map(x => {
         return {
-            gameId: x['GameId'].S,
-            gameName: x['sk'].S,
+            gameId: x['sk'].S,
+            gameName: x['GameName'].S,
         } as Game
     });
 }
-  
-export async function getGameByName(gameName: string): Promise<Game | null> {
-    const result = await client.getItem({
-        TableName: tableName,
-        Key: {
-            'pk' : { S: 'Games'},
-            'sk': { S: gameName}
-        },
-        ProjectionExpression: 'sk, GameId'
-    })
 
-    if(result.Item == undefined){
-        return null;
-    }
-
-    return {
-        gameId: result.Item['GameId'].S,
-        gameName: result.Item['sk'].S,
-    } as Game
-}
-
-export async function getGamesByNamesBatch(gameNames: string[]) : Promise<Game[]> {
+export async function getGamesByIdsBatch(gameIds: string[]) : Promise<Game[]> {
     const result = await client.batchGetItem({
         RequestItems: {
             tableName: {
-                Keys: gameNames.map(game => {
+                Keys: gameIds.map(game => {
                     return { 
                         'pk': { S: 'Games'},
                         'sk': { S: game }
@@ -63,8 +44,8 @@ export async function getGamesByNamesBatch(gameNames: string[]) : Promise<Game[]
 
     return result.Responses[0].map(item => {
         return {
-            gameId: item['GameId'].S,
-            gameName: item['sk'].S,
+            gameId: item['sk'].S,
+            gameName: item['GameName'].S,
         } as Game
     })
 }
@@ -75,7 +56,7 @@ export async function getUsersForGame(gameId: string) : Promise<User[]> {
         KeyConditionExpression: 'pk= :pk AND begins_with(sk, :gameId)',
         ExpressionAttributeValues: {
             ':pk' : { S: 'UserGame'},
-            ':gameName': { S: gameId}
+            ':gameId': { S: gameId}
         },
         ProjectionExpression: 'sk',
     });
@@ -85,7 +66,7 @@ export async function getUsersForGame(gameId: string) : Promise<User[]> {
     }
 
     return result.Items!.map(x => {
-        return { userId: x['sk'].S?.split('_')[1]! }
+        return { userName: x['sk'].S?.split('_')[1]! }
     })
 }
 
@@ -95,8 +76,8 @@ export async function createGame(gameName: string, gameId: string) : Promise<boo
             TableName: tableName,
             Item: {
                 'pk': { S: 'Games' },
-                'sk': { S: gameName },
-                'gameId': { S: gameId}
+                'sk': { S: gameId },
+                'GameName': { S: gameName}
             }
         });
         return true;
@@ -107,13 +88,21 @@ export async function createGame(gameName: string, gameId: string) : Promise<boo
 
 }
 
-export async function assignUser(gameId: string, userName: string) {
+export async function assignUsers( gameUsers: GameUser[] ) {
     try {
-        await client.putItem({
-            TableName: tableName,
-            Item: {
-                'pk': { S: 'UserGame' },
-                'sk': { S: `${gameId}_${userName}` }
+        
+        await client.batchWriteItem({
+            RequestItems: {
+                tableName: gameUsers.map(x => {
+                    return {
+                        PutRequest: {
+                            Item: {
+                                'pk': { S: 'UserGame' },
+                                'sk': { S: `${x.gameId}_${x.userName}` }
+                            }
+                        }
+                    }
+                })
             }
         });
         return true;

@@ -1,3 +1,5 @@
+import { GameUser } from "../aws/types";
+
 const deviceReferralTemplate: string = "https://www.meta.com/referrals/link/";
 const appReferralTemplate: string = "https://www.oculus.com/appreferrals/USER/APP"
 
@@ -22,7 +24,7 @@ export function parseDeviceLink(link: string) : string | undefined {
     return segments[segments.length - 1];
 }
 
-export function parseAppLink(link: string) :  { userName: string | undefined, appId: string | undefined } {
+export function parseGameLink(link: string) :  GameUser {
     // Define a regular expression to match the desired values
     const regex = /\/appreferrals\/([^\/]+)\/([^\/]+)\/\?/;
 
@@ -31,7 +33,7 @@ export function parseAppLink(link: string) :  { userName: string | undefined, ap
 
     // Extract the values from the match
     const userName = match ? match[1] : undefined;
-    const appId = match ? match[2] : '';
+    const gameId = match ? match[2] : '';
 
-    return { userName, appId: normalizeGameNameText(appId) };
+    return { userName: userName!, gameId: normalizeGameNameText(gameId) };
 }

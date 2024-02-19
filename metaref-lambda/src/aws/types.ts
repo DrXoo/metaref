@@ -4,10 +4,15 @@ export interface Game {
 }
   
 export interface User {
-    userId: string;
+    userName: string;
 }
 
 export interface GameUsers {
     gameId: string;
     users: string[];
+}
+
+export interface GameUser { 
+    gameId: string;
+    userName: string
 }

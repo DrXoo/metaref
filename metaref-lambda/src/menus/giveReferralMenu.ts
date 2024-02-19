@@ -1,8 +1,10 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { Menu } from "./menu";
 import { ReferralType } from "../models/referralType";
-import { buildAppUrl, parseAppLink } from "../utls/referralUtils";
+import { buildAppUrl, parseGameLink } from "../utls/referralUtils";
 import { createUser } from "../aws/db/user-repository";
+import { assignUsers, getGamesByIdsBatch } from "../aws/db/game-repository";
+import { sendGameUrls } from "../aws/sqsClient";
 
 export class GiveReferralMenu extends Menu {
     
@@ -64,13 +66,25 @@ export class GiveReferralMenu extends Menu {
             const urls = text.match(this.urlRegex);
 
             if (urls && urls.length > 0) {
-                const appReferrals = urls.map(url => parseAppLink(url));
+                const gameReferrals = urls.map(url => parseGameLink(url));
 
-                const pepe = appReferrals.map(x => buildAppUrl(x.userName!, x.appId!))
+                const existingGames = await getGamesByIdsBatch(gameReferrals.map(x => x.gameId!)); 
+                const existingGameIds = existingGames.map(x => x.gameId);
 
-                await this.editMessageAtManageMessage(context, messageId, `App Referrals detected: ${appReferrals.length}`);
+                await assignUsers(gameReferrals.filter(x => existingGameIds.includes(x.gameId)));
+
+                const nonExistingGames = gameReferrals.filter(x => !existingGameIds.includes(x.gameId!));
+                const urlsForNonExistingGames = nonExistingGames.map(x => buildAppUrl(x.userName!, x.gameId!))
+
+                await sendGameUrls(urlsForNonExistingGames);  
+
+                await this.editMessageAtManageMessage(context, messageId, `
+                Se detectaron ${gameReferrals.length} juegos.
+                El proceso de agregar cada juego tarda un poco y es un proceso indirecto. 
+                Puede user el bot normalmente. 
+                `);
             } else {
-                await this.editMessageAtManageMessage(context, messageId, `No app referrals detected`);
+                await this.editMessageAtManageMessage(context, messageId, `No se detectaron juegos en los enlaces`);
             }
         }
     }
