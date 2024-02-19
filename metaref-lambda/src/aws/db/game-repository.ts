@@ -70,16 +70,24 @@ export async function getUsersForGame(gameId: string) : Promise<User[]> {
     })
 }
 
-export async function createGame(gameName: string, gameId: string) : Promise<boolean> {
+export async function createGames(games: Game[]) : Promise<boolean> {
     try {
-        await client.putItem({
-            TableName: tableName,
-            Item: {
-                'pk': { S: 'Games' },
-                'sk': { S: gameId },
-                'GameName': { S: gameName}
+        await client.batchWriteItem({
+            RequestItems: {
+                tableName: games.map(x => {
+                    return {
+                        PutRequest: {
+                            Item: {
+                                'pk': { S: 'Games' },
+                                'sk': { S: x.gameId },
+                                'GameName': { S: x.gameName}
+                            }
+                        }
+                    }
+                })
             }
         });
+
         return true;
     } catch (error) {
         console.log(error);
