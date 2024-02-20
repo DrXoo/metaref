@@ -23,7 +23,8 @@ export class TelegramHandlerLambda extends Construct {
             environment: {
               TOKEN: process.env.TOKEN!,
               DB_TABLE_NAME: props.table.tableName!,
-              REGION: process.env.REGION!
+              REGION: process.env.REGION!,
+              QUEUE_URL: props.queue.queueUrl
             },
           });
 
