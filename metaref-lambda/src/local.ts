@@ -1,5 +1,4 @@
 import 'dotenv/config'
-import http from "serverless-http";
 import { Telegraf } from 'telegraf';
 import { StartMenu } from './menus/startMenu';
 import { RequestReferralMenu } from './menus/requestReferralMenu';
