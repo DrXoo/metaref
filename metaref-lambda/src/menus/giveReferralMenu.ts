@@ -70,7 +70,6 @@ export class GiveReferralMenu extends Menu {
 
                 const existingGames = await getGamesByIdsBatch(gameReferrals.map(x => x.gameId!)); 
                 const existingGameIds = existingGames.map(x => x.gameId);
-
                 await assignUsers(gameReferrals.filter(x => existingGameIds.includes(x.gameId)));
 
                 const nonExistingGames = gameReferrals.filter(x => !existingGameIds.includes(x.gameId!));
@@ -81,9 +80,11 @@ export class GiveReferralMenu extends Menu {
                         url: buildAppUrl(x.userName!, x.gameId!)
                     }
                 })
-
-                await sendGameUrls(urlsForNonExistingGames);  
-
+                
+                if(urlsForNonExistingGames.length > 0) {
+                    await sendGameUrls(urlsForNonExistingGames);  
+                }
+            
                 await this.editMessageAtManageMessage(context, messageId, `
                 Se detectaron ${gameReferrals.length} juegos.
                 El proceso de agregar cada juego tarda un poco y es un proceso indirecto. 

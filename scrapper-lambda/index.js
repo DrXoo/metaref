@@ -15,14 +15,17 @@ exports.handler = async (event, context, callback) => {
         const gameName = await extractGameName(data.url);
         games.push({
             gameId: data.gameId,
-            gameName,
+            gameName: normalizeGameNameText(gameName),
             userName: data.userName
         });
     }
 
-
     await createGames(games);
     await assignUsers(games);
+}
+
+function normalizeGameNameText(rawText) {
+    return rawText.trim().toLowerCase().replace(/\s/g, '');
 }
 
 async function extractGameName(url) {

@@ -29,7 +29,7 @@ export async function getGamesByIdsBatch(gameIds: string[]) : Promise<Game[]> {
     try {
         const result = await client.batchGetItem({
             RequestItems: {
-                tableName: {
+                [tableName]: {
                     Keys: gameIds.map(game => {
                         return { 
                             'pk': { S: 'Games'},
@@ -39,11 +39,11 @@ export async function getGamesByIdsBatch(gameIds: string[]) : Promise<Game[]> {
                 }
             }
         });
-
-        if(result.Responses == undefined)
-        return [];
-
-        return result.Responses[0].map(item => {
+        if(result.Responses == undefined) {
+            return [];
+        }
+        
+        return result.Responses.MetaRef.map(item => {
             return {
                 gameId: item['sk'].S,
                 gameName: item['GameName'].S,
@@ -79,7 +79,7 @@ export async function createGames(games: Game[]) : Promise<boolean> {
     try {
         await client.batchWriteItem({
             RequestItems: {
-                tableName: games.map(x => {
+                [tableName]: games.map(x => {
                     return {
                         PutRequest: {
                             Item: {
@@ -109,7 +109,7 @@ export async function assignUsers( gameUsers: GameUser[] ) {
     try {
         await client.batchWriteItem({
             RequestItems: {
-                tableName: gameUsers.map(x => {
+                [tableName]: gameUsers.map(x => {
                     return {
                         PutRequest: {
                             Item: {
