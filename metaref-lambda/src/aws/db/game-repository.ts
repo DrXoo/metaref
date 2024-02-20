@@ -26,28 +26,33 @@ export async function searchGame(gameName: string): Promise<Game[]> {
 }
 
 export async function getGamesByIdsBatch(gameIds: string[]) : Promise<Game[]> {
-    const result = await client.batchGetItem({
-        RequestItems: {
-            tableName: {
-                Keys: gameIds.map(game => {
-                    return { 
-                        'pk': { S: 'Games'},
-                        'sk': { S: game }
-                    }
-                })
+    try {
+        const result = await client.batchGetItem({
+            RequestItems: {
+                tableName: {
+                    Keys: gameIds.map(game => {
+                        return { 
+                            'pk': { S: 'Games'},
+                            'sk': { S: game }
+                        }
+                    })
+                }
             }
-        }
-    });
+        });
 
-    if(result.Responses == undefined)
+        if(result.Responses == undefined)
         return [];
 
-    return result.Responses[0].map(item => {
-        return {
-            gameId: item['sk'].S,
-            gameName: item['GameName'].S,
-        } as Game
-    })
+        return result.Responses[0].map(item => {
+            return {
+                gameId: item['sk'].S,
+                gameName: item['GameName'].S,
+            } as Game
+        })
+    } catch (error) {
+        console.log(error);
+        return [];
+    }
 }
 
 export async function getUsersForGame(gameId: string) : Promise<User[]> {
@@ -97,8 +102,11 @@ export async function createGames(games: Game[]) : Promise<boolean> {
 }
 
 export async function assignUsers( gameUsers: GameUser[] ) {
+    if(gameUsers.length == 0){
+        return;
+    }
+    
     try {
-        
         await client.batchWriteItem({
             RequestItems: {
                 tableName: gameUsers.map(x => {
@@ -113,9 +121,7 @@ export async function assignUsers( gameUsers: GameUser[] ) {
                 })
             }
         });
-        return true;
     } catch (error) {
         console.log(error);
-        return false;
     }
 }
