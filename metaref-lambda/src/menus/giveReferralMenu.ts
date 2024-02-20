@@ -74,7 +74,13 @@ export class GiveReferralMenu extends Menu {
                 await assignUsers(gameReferrals.filter(x => existingGameIds.includes(x.gameId)));
 
                 const nonExistingGames = gameReferrals.filter(x => !existingGameIds.includes(x.gameId!));
-                const urlsForNonExistingGames = nonExistingGames.map(x => buildAppUrl(x.userName!, x.gameId!))
+                const urlsForNonExistingGames = nonExistingGames.map(x => {
+                    return {
+                        gameId: x.gameId,
+                        userName: x.userName,
+                        url: buildAppUrl(x.userName!, x.gameId!)
+                    }
+                })
 
                 await sendGameUrls(urlsForNonExistingGames);  
 

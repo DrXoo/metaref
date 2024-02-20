@@ -1,62 +1,43 @@
 require('dotenv').config()
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+
+const client = new DynamoDB({ region: process.env.REGION });
+const tableName = process.env.DB_TABLE_NAME
 
 exports.handler = async (event, context, callback) => {
-    var urls = await event.Records.map((record) => record.body.gameUrl);
+    var gamesData = await event.Records.map((record) => JSON.parse(record.body));
     
     var games = [];
 
-    for (const url of urls) {
-        const response = await axios.get(url);
-        const html = response.data;
-        const $ = cheerio.load(html);
-
-        const gameName = extractGameName($);
-        const gameInfo = parseGameLink(url);
-
+    for (const data of gamesData) {
+        const gameName = await extractGameName(data.url);
         games.push({
-            gameId: gameInfo.gameId,
+            gameId: data.gameId,
             gameName,
-            userName: gameInfo.userName
-        })
+            userName: data.userName
+        });
     }
 
-    const client = new DynamoDB({ region: process.env.REGION });
-    const tableName = process.env.DB_TABLE_NAME
 
     await createGames(games);
     await assignUsers(games);
 }
 
-function extractGameName(cheerioRoot) {
-    const title = cheerioRoot('title').text();
+async function extractGameName(url) {
+    const response = await axios.get(url);
+    const html = response.data;
+    const $ = cheerio.load(html);
+    const title = $('title').text();
     return title.split('off')[1].split('|')[0].trim();
-}
-
-function parseGameLink(link)  {
-    // Define a regular expression to match the desired values
-    const regex = /\/appreferrals\/([^\/]+)\/([^\/]+)\/\?/;
-
-    // Use the regular expression to match the values in the URL
-    const match = link.match(regex);
-
-    // Extract the values from the match
-    const userName = match ? match[1] : undefined;
-    const gameId = match ? match[2] : '';
-
-    return { userName, gameId: normalizeGameNameText(gameId) };
-}
-
-function normalizeGameNameText(rawText){
-    return rawText.trim().toLowerCase().replace(/\s/g, '');
 }
 
 async function createGames(games) {
     try {
         await client.batchWriteItem({
             RequestItems: {
-                tableName: games.map(x => {
+                [tableName]: games.map(x => {
                     return {
                         PutRequest: {
                             Item: {
@@ -79,10 +60,9 @@ async function createGames(games) {
 
 async function assignUsers( gameUsers ) {
     try {
-        
         await client.batchWriteItem({
             RequestItems: {
-                tableName: gameUsers.map(x => {
+                [tableName]: gameUsers.map(x => {
                     return {
                         PutRequest: {
                             Item: {
