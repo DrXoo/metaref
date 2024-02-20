@@ -26,29 +26,6 @@ export async function getRandomUser(): Promise<User | null> {
     return users[randomIndex];
 }
 
-export async function getUser(userName: string): Promise<User | null> {
-    const result = await client.query({
-        TableName: tableName,
-        KeyConditionExpression: 'pk= :pk AND sk = :sk',
-        ExpressionAttributeValues: {
-            ':pk' : { S: 'Users' },
-            ':sk': { S: userName } 
-        },
-        ProjectionExpression: 'sk'
-    });
-    
-    const item = result.Items?.at(0)
-
-    if(item == null){
-        return null;
-    }
-
-    return {
-        userName: item['sk'].S!
-    } as User
-}
-
-
 export async function createUser(userName: string) : Promise<boolean> {
     var existingUser = await getUser(userName);
 
@@ -65,4 +42,23 @@ export async function createUser(userName: string) : Promise<boolean> {
     });
 
     return true;
+}
+
+async function getUser(userName: string): Promise<User | null> {
+    const result = await client.getItem({
+        TableName: tableName,
+        Key: {
+            'pk': { S: 'Users' },
+            'sk': { S: userName }
+        },
+        ConsistentRead: true
+    })
+
+    if(result.Item == undefined) {
+        return null;
+    }
+
+    return {
+        userName: result.Item['sk'].S!
+    } as User
 }
