@@ -16,6 +16,7 @@ exports.handler = async (event, context, callback) => {
         games.push({
             gameId: data.gameId,
             gameName: normalizeGameNameText(gameName),
+            rawGameName: gameName,
             userName: data.userName
         });
     }
@@ -46,7 +47,8 @@ async function createGames(games) {
                             Item: {
                                 'pk': { S: 'Games' },
                                 'sk': { S: x.gameId },
-                                'GameName': { S: x.gameName}
+                                'GameName': { S: x.gameName},
+                                'RawGameName': { S: x.rawGameName }
                             }
                         }
                     }

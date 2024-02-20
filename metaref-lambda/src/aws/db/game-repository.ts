@@ -14,13 +14,17 @@ export async function searchGame(gameName: string): Promise<Game[]> {
             ':pk' : { S: 'Games'},
             ':gameName': { S: gameName}
         },
-        ProjectionExpression: 'sk, GameName',
+        ProjectionExpression: 'sk, RawGameName',
     });
+
+    if(result.Items == undefined || result.Items.length == 0) {
+        return [];
+    }
 
     return result.Items!.map(x => {
         return {
             gameId: x['sk'].S,
-            gameName: x['GameName'].S,
+            gameName: x['RawGameName'].S,
         } as Game
     });
 }
