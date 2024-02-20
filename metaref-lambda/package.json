@@ -7,6 +7,7 @@
     "build": "tsc",
     "deploy": "sls deploy",
     "start": "ts-node src/index.ts",
+    "local": "ts-node src/local.ts",
     "postbuild": "copy package.json dist\\package.json && copy package-lock.json dist\\package-lock.json && cd dist && npm ci --only=production",
     "set-webhook": "telegraf -m setWebhook"
   },
@@ -16,10 +17,13 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "dotenv": "^16.4.4",
     "@aws-sdk/client-dynamodb": "^3.513.0",
+    "@aws-sdk/client-sqs": "^3.515.0",
+    "@types/uuid": "^9.0.8",
+    "dotenv": "^16.4.4",
     "serverless-http": "^3.2.0",
     "telegraf": "^4.15.3",
-    "ts-node": "^10.9.2"
+    "ts-node": "^10.9.2",
+    "uuid": "^9.0.1"
   }
 }

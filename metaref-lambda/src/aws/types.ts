@@ -1,0 +1,18 @@
+export interface Game {
+    gameId: string;
+    gameName: string;
+}
+  
+export interface User {
+    userName: string;
+}
+
+export interface GameUsers {
+    gameId: string;
+    users: string[];
+}
+
+export interface GameUser { 
+    gameId: string;
+    userName: string
+}

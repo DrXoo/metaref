@@ -1,11 +1,10 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { Menu } from "./menu";
-import { getRandomUser, searchGame } from "../db/dbClient";
+import { getUsersForGame, searchGame } from "../aws/db/game-repository";
+import { getRandomUser } from "../aws/db/user-repository";
+import { buildAppUrl, buildDeviceUrl, normalizeGameNameText } from "../utls/referralUtils";
 
 export class RequestReferralMenu extends Menu {
-    
-    private deviceReferralTemplate: string = "https://www.meta.com/referrals/link/";
-    private appReferralTemplate: string = "https://www.oculus.com/appreferrals/USER/APP"
 
     constructor(bot: Telegraf) {
         super();
@@ -13,8 +12,8 @@ export class RequestReferralMenu extends Menu {
             var randomUser = await getRandomUser();
             await ctx.editMessageText(
                 `Aquí tiene su referido
-            
-                ${this.deviceReferralTemplate}${randomUser?.userId}
+                
+                ${buildDeviceUrl(randomUser!.userName)}
             `, {
                 ...Markup.inlineKeyboard([
                   Markup.button.callback('Volver', 'request_referral')
@@ -31,12 +30,14 @@ export class RequestReferralMenu extends Menu {
             this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!)
         });
 
-        bot.action(/selected_referral-\w*,\w*,\w*$/, async (ctx) => {
+        bot.action(/selected_referral-\w*,\w*$/, async (ctx) => {
             const data = ctx.match[0].split('-')[1].split(',');
-            const appReferral = this.appReferralTemplate.replace('USER',data[2]).replace('APP',data[0])
-            await ctx.editMessageText(
+            const usersId = await getUsersForGame(data[1]);
+            const randomUserId = usersId[Math.floor(Math.random() * usersId.length)].userName
+            const appReferral = buildAppUrl(randomUserId, data[1])
+            await ctx.telegram.editMessageText(ctx.chat!.id, Number.parseInt(data[0]), undefined, 
 `
-Aquí está el referido para la aplicación que has seleccionado
+Aquí está el referido para el juego que has seleccionado
 
 ${appReferral}
 `, {
@@ -68,27 +69,18 @@ ${appReferral}
 
     public async manageOnMessage(context: Context, messageId: number, text: string)
     {
-        const games = await searchGame(text.toLowerCase().replace(/\s/g, ''));
-        const mapGames : Map<string, { gameName: string, userIds: string[]}> = new Map<string, { gameName: string, userIds: []}>();
-        games.forEach(game => {
-            if(mapGames.has(game.gameId)) {
-                mapGames.get(game.gameId)!.userIds.push(game.userId);
-            }else {
-                mapGames.set(game.gameId, { gameName: game.gameName, userIds: [game.userId]});
-            }
-        });
+        const games = await searchGame(normalizeGameNameText(text));
 
         let buttons : any = [];
-         mapGames.forEach((game, gameId) => {
-            console.log(`selected_referral-${gameId},${messageId},${game.userIds[Math.floor(Math.random() * game.userIds.length)]}`);
-            buttons.push(Markup.button.callback(game.gameName, `selected_referral-${gameId},${messageId},${game.userIds[Math.floor(Math.random() * game.userIds.length)]}`))
-        })
+         games.forEach(game => {
+            buttons.push(Markup.button.callback(game.gameName, `selected_referral-${messageId},${game.gameId}`))
+        });
 
         await context.telegram.editMessageText(
             context.chat!.id, 
             messageId, 
             undefined, 
-            `I have found some games with that name. Please select the one that you want`, 
+            `He encontrado algunos juegos con ese nombre, elije el tuyo`, 
             { ...Markup.inlineKeyboard(buttons) });
     }
 }

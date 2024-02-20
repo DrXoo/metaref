@@ -14,7 +14,8 @@ export class InfraStack extends Stack {
 
     const queue = new Queue(this, 'GameNameQueue', {
       visibilityTimeout: Duration.seconds(30), // adjust as needed,
-      fifo: true
+      fifo: true,
+      deliveryDelay: Duration.minutes(1)
     });
 
     const telegramHandler = new TelegramHandlerLambda(this, { table: db.table, queue });

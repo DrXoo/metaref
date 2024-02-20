@@ -17,8 +17,8 @@ export class MetaRefDb extends Construct {
         });
 
         this.table.addLocalSecondaryIndex({
-            indexName: 'GameIdIndex',
-            sortKey: { name: 'GameId', type: AttributeType.STRING },
+            indexName: 'GameNameindex',
+            sortKey: { name: 'GameName', type: AttributeType.STRING },
         });
     }
 }
