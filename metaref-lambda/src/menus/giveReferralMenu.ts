@@ -1,28 +1,28 @@
 import { Context, Markup, Telegraf } from "telegraf";
-import { Menu } from "./menu";
 import { ReferralType } from "../models/referralType";
-import { buildAppUrl, parseGameLink } from "../utls/referralUtils";
+import { buildAppUrl, parseGameLink } from "../utils/referralUtils";
 import { createUser } from "../aws/db/user-repository";
 import { assignUsers, getGamesByIdsBatch } from "../aws/db/game-repository";
 import { sendGameUrls } from "../aws/sqsClient";
+import { InteractionMenu } from "./abstracts/interactionMenu";
 
-export class GiveReferralMenu extends Menu {
+export class GiveReferralMenu extends InteractionMenu {
     
     private urlRegex = /(https?:\/\/[^\s]+)/g;
 
-    constructor(bot: Telegraf) {
-        super();
+    constructor(bot: Telegraf, i18n: any) {
+        super(i18n);
 
         bot.action('give_device_referral', async (ctx) => {
-            await ctx.editMessageText('A continuación escribe tu nombre de usuario de Meta', 
-                { ...Markup.inlineKeyboard([Markup.button.callback('Volver', 'give_referral'),])});
+            await ctx.editMessageText(this.translate(ctx, 'giveDeviceReferral'), 
+                { ...Markup.inlineKeyboard([Markup.button.callback(this.translate(ctx, 'button.return'), 'give_referral'),])});
 
             this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!, { referralType: ReferralType.DEVICE.toString() })
         });
 
         bot.action('give_app_referral', async (ctx) => {
-            await ctx.editMessageText('A continuación pega los enlaces de referidos de aplicaciones', 
-                { ...Markup.inlineKeyboard([Markup.button.callback('Volver', 'give_referral'),])});
+            await ctx.editMessageText(this.translate(ctx, 'giveGamesReferral'), 
+                { ...Markup.inlineKeyboard([Markup.button.callback(this.translate(ctx, 'button.return'), 'give_referral'),])});
 
             this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!, { referralType: ReferralType.APP.toString() })
         });
@@ -30,18 +30,12 @@ export class GiveReferralMenu extends Menu {
         bot.action('give_referral', async (ctx) => {
             this.clearListenMessage(ctx.chat?.id!);
             
-            await ctx.editMessageText(`
-            📤 Ha seleccionado dar referidos
-
-            Este apartado está destinado a que pueda registrar sus enlaces para poder 
-            darlos a futuras personas que pidan referidos de las apps que nos proporcione
-
-            A continuación, seleccione si desea dar referido de visor o de applicaciones`, {
+            await ctx.editMessageText(this.translate(ctx, 'giveReferral'), {
                 ...Markup.inlineKeyboard([[
-                    Markup.button.callback('Visor', 'give_device_referral'),
-                    Markup.button.callback('Applicaciones', 'give_app_referral'),
+                    Markup.button.callback(this.translate(ctx, 'button.device'), 'give_device_referral'),
+                    Markup.button.callback(this.translate(ctx, 'button.games'), 'give_app_referral'),
                 ],[
-                    Markup.button.callback('Volver', 'return_start')
+                    Markup.button.callback(this.translate(ctx, 'button.returnStart'), 'return_start')
                   ]]),
             });
         });
@@ -52,19 +46,16 @@ export class GiveReferralMenu extends Menu {
         if(data?.referralType == ReferralType.DEVICE.toString()) {
             const userName = text.trim();
             if(userName.length > 0 && !userName.includes(" ")) {
-
-                await context.telegram.editMessageText(context.chat!.id, messageId, undefined, `Procesando...`);
-
                 var result = await createUser(userName);
 
                 if(result) {
-                    await this.editMessageAtManageMessage(context, messageId, `Referido de visor del usuario ${userName} ha sido añadido`);
+                    await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'addedDeviceReferral', { userName }));
                 }else {
-                    await this.editMessageAtManageMessage(context, messageId, `Usuario ya agregado`);
+                    await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'alreadyAddedDeviceReferral'));
                 }
             }
             else {
-                await this.editMessageAtManageMessage(context, messageId, `Formato incorrecto`);
+                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'wrongFormat'));
             }
         } else if (data?.referralType == ReferralType.APP.toString()) {
             const urls = text.match(this.urlRegex);
@@ -89,13 +80,9 @@ export class GiveReferralMenu extends Menu {
                     await sendGameUrls(urlsForNonExistingGames);  
                 }
             
-                await this.editMessageAtManageMessage(context, messageId, `
-                Se detectaron ${gameReferrals.length} juegos.
-                El proceso de agregar cada juego tarda un poco y es un proceso indirecto. 
-                Puede user el bot normalmente. 
-                `);
+                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'addedGamesReferral', { games: gameReferrals.length}));
             } else {
-                await this.editMessageAtManageMessage(context, messageId, `No se detectaron juegos en los enlaces`);
+                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'noFoundGames'));
             }
         }
     }
@@ -108,8 +95,8 @@ export class GiveReferralMenu extends Menu {
             editedText, 
             {
                 ...Markup.inlineKeyboard([
-                  Markup.button.callback('Volver', 'give_referral'),
-                  Markup.button.callback('Volver al inicio', 'return_start')
+                  Markup.button.callback(this.translate(context, 'button.return'), 'give_referral'),
+                  Markup.button.callback(this.translate(context, 'button.returnStart'), 'return_start')
                 ]),
             });
     }

@@ -1,30 +1,27 @@
 import { Context, Markup, Telegraf } from "telegraf";
-import { Menu } from "./menu";
 import { getUsersForGame, searchGame } from "../aws/db/game-repository";
 import { getRandomUser } from "../aws/db/user-repository";
-import { buildAppUrl, buildDeviceUrl, normalizeGameNameText } from "../utls/referralUtils";
+import { buildAppUrl, buildDeviceUrl, normalizeGameNameText } from "../utils/referralUtils";
+import { InteractionMenu } from "./abstracts/interactionMenu";
 
-export class RequestReferralMenu extends Menu {
+export class RequestReferralMenu extends InteractionMenu {
 
-    constructor(bot: Telegraf) {
-        super();
+    constructor(bot: Telegraf, i18n: any) {
+        super(i18n);
+
         bot.action('request_device_referral', async (ctx) => {
             var randomUser = await getRandomUser();
-            await ctx.editMessageText(
-                `Aquí tiene su referido
-                
-                ${buildDeviceUrl(randomUser!.userName)}
-            `, {
+            await ctx.editMessageText(this.translate(ctx, 'deviceReferral', { url: buildDeviceUrl(randomUser!.userName), interpolation: {escapeValue: false} }), {
                 ...Markup.inlineKeyboard([
-                  Markup.button.callback('Volver', 'request_referral')
+                  Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral')
                 ]),
             });
         });
 
         bot.action('request_game_referral', async (ctx) => {
-            await ctx.editMessageText('Introduce el nombre del juego', {
+            await ctx.editMessageText(this.translate(ctx, 'requestGameReferral'), {
                 ...Markup.inlineKeyboard([
-                  Markup.button.callback('Volver', 'request_referral')
+                  Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral')
                 ]),
             });
             this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!)
@@ -36,15 +33,10 @@ export class RequestReferralMenu extends Menu {
             const randomUserId = usersId[Math.floor(Math.random() * usersId.length)].userName
             const appReferral = buildAppUrl(randomUserId, data[1])
             await ctx.telegram.editMessageText(ctx.chat!.id, Number.parseInt(data[0]), undefined, 
-`
-Aquí está el referido para el juego que has seleccionado
-
-${appReferral}
-`, {
-
+                this.translate(ctx, 'gameReferral', { url: appReferral , interpolation: {escapeValue: false}}), {
                 ...Markup.inlineKeyboard([
-                  Markup.button.callback('Volver', 'request_referral'),
-                  Markup.button.callback('Volver al inicio', 'return_start')
+                  Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral'),
+                  Markup.button.callback(this.translate(ctx, 'button.returnStart'), 'return_start')
                 ]),
             });
         });
@@ -52,19 +44,12 @@ ${appReferral}
         bot.action('request_referral', async (ctx) => {
             this.clearListenMessage(ctx.chat?.id!);
             
-            await ctx.editMessageText(`
-            📥 Ha seleccionado pedir referidos
-
-            Este apartado está destinado a que pueda solicitar referidos tanto para visor, 
-            como para cualquier aplicación que desee
-
-            A continuación, seleccione si desea recibir referido de visor o de alguna aplicación
-        `,{
+            await ctx.editMessageText(this.translate(ctx, 'requestReferral'),{
             parse_mode: 'MarkdownV2',
             ...Markup.inlineKeyboard([[
-                Markup.button.callback('Visor', 'request_device_referral'),
-                Markup.button.callback('Applicación', 'request_game_referral'),
-            ], [ Markup.button.callback('Volver', 'return_start') ]]),
+                Markup.button.callback(this.translate(ctx, 'button.device'), 'request_device_referral'),
+                Markup.button.callback(this.translate(ctx, 'button.game'), 'request_game_referral'),
+            ], [ Markup.button.callback(this.translate(ctx, 'button.returnStart'), 'return_start') ]]),
         });
         });
     }
@@ -82,7 +67,7 @@ ${appReferral}
             context.chat!.id, 
             messageId, 
             undefined, 
-            `He encontrado algunos juegos con ese nombre, elije el tuyo`, 
+            this.translate(context, 'foundRequestGames'), 
             { ...Markup.inlineKeyboard(buttons) });
     }
 }

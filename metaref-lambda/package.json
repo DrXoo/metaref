@@ -8,7 +8,7 @@
     "deploy": "sls deploy",
     "start": "ts-node src/index.ts",
     "local": "ts-node src/local.ts",
-    "postbuild": "copy package.json dist\\package.json && copy package-lock.json dist\\package-lock.json && cd dist && npm ci --only=production",
+    "postbuild": "cp package.json dist/package.json && cp package-lock.json dist/package-lock.json && cd dist && npm ci --only=production",
     "set-webhook": "telegraf -m setWebhook"
   },
   "author": "",
@@ -21,6 +21,7 @@
     "@aws-sdk/client-sqs": "^3.515.0",
     "@types/uuid": "^9.0.8",
     "dotenv": "^16.4.4",
+    "i18next": "^23.9.0",
     "serverless-http": "^3.2.0",
     "telegraf": "^4.15.3",
     "ts-node": "^10.9.2",

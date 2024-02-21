@@ -1,4 +1,6 @@
 import { Context } from "telegraf";
+import { i18n } from 'i18next';
+import { Menu } from "./menu";
 
 interface ListenInteraction
 {
@@ -6,7 +8,11 @@ interface ListenInteraction
     data?: Record<string, string>
 }
 
-export abstract class Menu {
+export abstract class InteractionMenu extends Menu {
+    
+    constructor(i18n: i18n) {
+        super(i18n);
+    }
 
     // I am afraid that multiple people can request a game name at the same time. 
     // this means that the messageId for the editMessage on the onMessage event
