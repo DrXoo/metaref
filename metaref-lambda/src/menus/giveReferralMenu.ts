@@ -14,18 +14,22 @@ export class GiveReferralMenu extends Menu {
         super();
 
         bot.action('give_device_referral', async (ctx) => {
-            await ctx.editMessageText('A continuación escribe tu nombre de usuario de Meta');
+            await ctx.editMessageText('A continuación escribe tu nombre de usuario de Meta', 
+                { ...Markup.inlineKeyboard([Markup.button.callback('Volver', 'give_referral'),])});
 
             this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!, { referralType: ReferralType.DEVICE.toString() })
         });
 
         bot.action('give_app_referral', async (ctx) => {
-            await ctx.editMessageText('A continuación pega los enlaces de referidos de aplicaciones');
+            await ctx.editMessageText('A continuación pega los enlaces de referidos de aplicaciones', 
+                { ...Markup.inlineKeyboard([Markup.button.callback('Volver', 'give_referral'),])});
 
             this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!, { referralType: ReferralType.APP.toString() })
         });
 
         bot.action('give_referral', async (ctx) => {
+            this.clearListenMessage(ctx.chat?.id!);
+            
             await ctx.editMessageText(`
             📤 Ha seleccionado dar referidos
 

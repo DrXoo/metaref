@@ -18,6 +18,12 @@ export abstract class Menu {
         this.chatIdToBotMessageId.set(chatId, { messageId, data })
     }
 
+    public clearListenMessage(chatId: number) {
+        if(this.chatIdToBotMessageId.has(chatId)) {
+            this.chatIdToBotMessageId.delete(chatId);
+        }
+    }
+
     protected abstract manageOnMessage(context: Context, messageId: number, text: string, data?: Record<string, string>) : Promise<void>
 
     public async onMessage(context: Context, text: string) : Promise<void> 

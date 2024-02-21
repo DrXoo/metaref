@@ -50,6 +50,8 @@ ${appReferral}
         });
 
         bot.action('request_referral', async (ctx) => {
+            this.clearListenMessage(ctx.chat?.id!);
+            
             await ctx.editMessageText(`
             📥 Ha seleccionado pedir referidos
 
