@@ -8,26 +8,33 @@ const tableName = process.env.DB_TABLE_NAME
 
 exports.handler = async (event, context, callback) => {
     var pendingGames = await getPendingGames();
+
+    if(pendingGames.length > 0) {
+        console.log(`Found ${pendingGames.length} games`);
+        var games = [];
+
+        for (const data of pendingGames) {
+            console.log(`URL to handle: ${data.url}`);
+            const gameName = await extractGameName(data.url);
+            console.log(`GameName: ${gameName}`)
+            games.push({
+                gameId: data.gameId,
+                gameName: normalizeGameNameText(gameName),
+                rawGameName: gameName,
+                userName: data.userName,
+                createdOn: data.createdOn
+            });
+        }
     
-    var games = [];
-
-    for (const data of pendingGames) {
-        const gameName = await extractGameName(data.url);
-        games.push({
-            gameId: data.gameId,
-            gameName: normalizeGameNameText(gameName),
-            rawGameName: gameName,
-            userName: data.userName,
-            createdOn: data.createdOn
-        });
+        if(games.length > 0) {
+            await createGames(games);
+            await assignUsers(games);
+        }
+    
+        await deletePendingGames(pendingGames);
+    } else {
+        console.log("No Pending Games. Skipping");
     }
-
-    if(games.length > 0) {
-        await createGames(games);
-        await assignUsers(games);
-    }
-
-    await deletePendingGames(pendingGames);
 }
 
 async function getPendingGames() {
