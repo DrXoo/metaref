@@ -7,23 +7,61 @@ const client = new DynamoDB({ region: process.env.REGION });
 const tableName = process.env.DB_TABLE_NAME
 
 exports.handler = async (event, context, callback) => {
-    var gamesData = await event.Records.map((record) => JSON.parse(record.body));
+    var pendingGames = await getPendingGames();
     
     var games = [];
 
-    for (const data of gamesData) {
+    for (const data of pendingGames) {
         const gameName = await extractGameName(data.url);
         games.push({
             gameId: data.gameId,
             gameName: normalizeGameNameText(gameName),
             rawGameName: gameName,
-            userName: data.userName
+            userName: data.userName,
+            createdOn: data.createdOn
         });
     }
 
-    await createGames(games);
-    await assignUsers(games);
+    if(games.length > 0) {
+        await createGames(games);
+        await assignUsers(games);
+    }
+
+    await deletePendingGames(pendingGames);
 }
+
+async function getPendingGames() {
+    const params = {
+        TableName: tableName, 
+        KeyConditionExpression: 'pk = :pk',
+        ExpressionAttributeValues: {
+        ':pk': { S: 'Pending' },
+        },
+        ProjectionExpression: 'GameId, GameUrl, UserName, CreatedOn',
+        ScanIndexForward: true, // Order by CreatedOn in ascending order
+        Limit: 5, // Take 5 elements only
+    };
+    
+    try {
+        const response = await client.query(params);
+
+        if(!response.Items || response.Items.length === 0) {
+            return [];
+        } 
+
+        return response.Items.map(x => {
+            return {
+                gameId: x['GameId'].S,
+                userName: x['UserName'].S,
+                url: x['GameUrl'].S,
+                createdOn: x['CreatedOn']
+            }
+        })
+    } catch (error) {
+        console.error('Error querying DynamoDB:', error);
+    }
+  }
+  
 
 function normalizeGameNameText(rawText) {
     return rawText.trim().toLowerCase().replace(/\s/g, '');
@@ -79,9 +117,28 @@ async function assignUsers( gameUsers ) {
                 })
             }
         });
-        return true;
     } catch (error) {
         console.log(error);
-        return false;
+    }
+}
+
+async function deletePendingGames(games) {
+    try {
+        await client.batchWriteItem({
+            RequestItems: {
+                [tableName]: games.map(x => {
+                    return {
+                        DeleteRequest: {
+                            Key: {
+                                pk: { S: 'Pending' },
+                                sk: { S: x.url}
+                            },
+                        }
+                    }
+                })
+            }
+        });
+    } catch (error) {
+        console.log(error);
     }
 }

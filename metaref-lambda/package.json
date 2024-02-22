@@ -5,11 +5,9 @@
   "main": "index.ts",
   "scripts": {
     "build": "tsc",
-    "deploy": "sls deploy",
     "start": "ts-node src/index.ts",
     "local": "ts-node src/local.ts",
-    "postbuild": "cp package.json dist/package.json && cp package-lock.json dist/package-lock.json && cd dist && npm ci --only=production",
-    "set-webhook": "telegraf -m setWebhook"
+    "postbuild": "cp package.json dist/package.json && cp package-lock.json dist/package-lock.json && cd dist && npm ci --only=production"
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +16,6 @@
   },
   "dependencies": {
     "@aws-sdk/client-dynamodb": "^3.513.0",
-    "@aws-sdk/client-sqs": "^3.515.0",
     "@types/uuid": "^9.0.8",
     "dotenv": "^16.4.4",
     "i18next": "^23.9.0",

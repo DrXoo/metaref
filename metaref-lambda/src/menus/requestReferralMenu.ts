@@ -58,16 +58,26 @@ export class RequestReferralMenu extends InteractionMenu {
     {
         const games = await searchGame(normalizeGameNameText(text));
 
-        let buttons : any = [];
-         games.forEach(game => {
-            buttons.push(Markup.button.callback(game.gameName, `selected_referral-${messageId},${game.gameId}`))
-        });
-
-        await context.telegram.editMessageText(
-            context.chat!.id, 
-            messageId, 
-            undefined, 
-            this.translate(context, 'foundRequestGames'), 
-            { ...Markup.inlineKeyboard(buttons) });
+        if(games.length > 0) {
+            let buttons : any = [];
+                games.forEach(game => {
+                buttons.push(Markup.button.callback(game.gameName, `selected_referral-${messageId},${game.gameId}`))
+            });
+   
+            await context.telegram.editMessageText(
+               context.chat!.id, 
+               messageId, 
+               undefined, 
+               this.translate(context, 'foundRequestGames'), 
+               { ...Markup.inlineKeyboard([buttons, 
+                   [Markup.button.callback(this.translate(context, 'button.return'), 'request_referral')] ]) });
+        } else {
+            await context.telegram.editMessageText(
+                context.chat!.id, 
+                messageId, 
+                undefined, 
+                this.translate(context, 'notFoundRequestGames'), 
+                { ...Markup.inlineKeyboard([ Markup.button.callback(this.translate(context, 'button.return'), 'request_referral') ]) });
+        }
     }
 }

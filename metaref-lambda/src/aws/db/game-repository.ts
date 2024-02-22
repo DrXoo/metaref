@@ -79,17 +79,20 @@ export async function getUsersForGame(gameId: string) : Promise<User[]> {
     })
 }
 
-export async function createGames(games: Game[]) : Promise<boolean> {
+export async function createPendingGame(pendingGames: {gameId: string, userName: string, url: string}[]) : Promise<boolean> {
     try {
         await client.batchWriteItem({
             RequestItems: {
-                [tableName]: games.map(x => {
+                [tableName]: pendingGames.map(x => {
                     return {
                         PutRequest: {
                             Item: {
-                                'pk': { S: 'Games' },
-                                'sk': { S: x.gameId },
-                                'GameName': { S: x.gameName}
+                                'pk': { S: 'Pending' },
+                                'sk': { S: `${x.url}`},
+                                'GameId': { S: x.gameId },
+                                'UserName': { S: x.userName},
+                                'GameUrl': { S: x.url },
+                                'CreatedOn': { S: new Date().toISOString() }
                             }
                         }
                     }

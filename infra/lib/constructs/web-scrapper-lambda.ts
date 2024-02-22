@@ -1,23 +1,27 @@
 import { Table } from "aws-cdk-lib/aws-dynamodb";
 import { Construct } from "constructs";
 import { Code, Runtime, Function } from 'aws-cdk-lib/aws-lambda';
-import { Queue } from "aws-cdk-lib/aws-sqs";
 import { Duration } from "aws-cdk-lib";
-import { SqsEventSource } from "aws-cdk-lib/aws-lambda-event-sources";
+import { Rule, Schedule } from "aws-cdk-lib/aws-events";
+import { LambdaFunction } from "aws-cdk-lib/aws-events-targets";
 
 export interface WebScrapperLambdaProps {
-    queue: Queue
     table: Table
 }
 
 export class WebScrapperLambda extends Construct {
 
-    public lambda: Function;
-
     constructor(scope: Construct, props: WebScrapperLambdaProps) {
         super(scope, 'WebScrapper');
 
-        this.lambda = new Function(scope, 'WebScrapperLambda', {
+
+        // Create an Event Rule with a cron expression
+        const rule = new Rule(this, 'CallScrapperLambdaSchedule', {
+          ruleName: 'CallScrapperLambdaSchedule',
+          schedule: Schedule.expression('rate(5 minutes)'),
+        });
+
+        const lambda = new Function(scope, 'WebScrapperLambda', {
             functionName: 'WebScrapperLambda',
             runtime: Runtime.NODEJS_20_X,
             handler: 'index.handler',
@@ -29,9 +33,9 @@ export class WebScrapperLambda extends Construct {
             },
           });
 
-        props.queue.grantConsumeMessages(this.lambda);
-        props.table.grantReadWriteData(this.lambda);
+        // Add the Lambda function as a target for the Event Rule
+        rule.addTarget(new LambdaFunction(lambda));
 
-        this.lambda.addEventSource(new SqsEventSource(props.queue));
+        props.table.grantReadWriteData(lambda);
     }
 }

@@ -2,8 +2,7 @@ import { Context, Markup, Telegraf } from "telegraf";
 import { ReferralType } from "../models/referralType";
 import { buildAppUrl, parseGameLink } from "../utils/referralUtils";
 import { createUser } from "../aws/db/user-repository";
-import { assignUsers, getGamesByIdsBatch } from "../aws/db/game-repository";
-import { sendGameUrls } from "../aws/sqsClient";
+import { assignUsers, createPendingGame as createPendingGames, getGamesByIdsBatch } from "../aws/db/game-repository";
 import { InteractionMenu } from "./abstracts/interactionMenu";
 
 export class GiveReferralMenu extends InteractionMenu {
@@ -77,7 +76,7 @@ export class GiveReferralMenu extends InteractionMenu {
                 })
                 
                 if(urlsForNonExistingGames.length > 0) {
-                    await sendGameUrls(urlsForNonExistingGames);  
+                    await createPendingGames(urlsForNonExistingGames);
                 }
             
                 await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'addedGamesReferral', { games: gameReferrals.length}));

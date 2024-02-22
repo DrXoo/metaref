@@ -12,16 +12,9 @@ export class InfraStack extends Stack {
 
     const db = new MetaRefDb(this);
 
-    const queue = new Queue(this, 'GameNameQueue', {
-      queueName: 'GameNameQueue.fifo',
-      visibilityTimeout: Duration.seconds(30), // adjust as needed,
-      fifo: true,
-      deliveryDelay: Duration.minutes(1)
-    });
+    const telegramHandler = new TelegramHandlerLambda(this, { table: db.table });
 
-    const telegramHandler = new TelegramHandlerLambda(this, { table: db.table, queue });
-
-    new WebScrapperLambda(this, { table: db.table, queue });
+    new WebScrapperLambda(this, { table: db.table });
 
     new MetaRefApi(this, { telegramHandlerLambda: telegramHandler.lambda });
   }

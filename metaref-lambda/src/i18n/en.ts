@@ -4,6 +4,7 @@ export const en_translations = {
     "requestReferral": "📥 Ha seleccionado pedir referidos\n\nEste apartado está destinado a que pueda solicitar referidos tanto para visor, como para cualquier aplicación que desee\n\nA continuación, seleccione si desea recibir referido de visor o de alguna aplicación",
     "requestGameReferral": "Enter the game name",
     "foundRequestGames": "He encontrado algunos juegos con ese nombre, elije el tuyo",
+    "notFoundRequestGames": "I haven´t found any games with that name.\n\nThis search engine is really simple. Type the begining of the name",
     "deviceReferral": "Here is your referral\n\n{{url}}",
     "gameReferral": "Aquí está el referido para el juego que has seleccionado\n\n{{url}}",
     "giveReferral": "📤 Ha seleccionado dar referidos\n\nEste apartado está destinado a que pueda registrar sus enlaces para poder darlos a futuras personas que pidan referidos de las apps que nos proporcione\n\nA continuación, seleccione si desea dar referido de visor o de applicaciones",

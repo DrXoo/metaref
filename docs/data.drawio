@@ -1,23 +1,80 @@
-<mxfile host="app.diagrams.net" modified="2024-02-19T20:30:53.110Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Safari/605.1.15" etag="oCNbIBxdN1PHZEVlsiku" version="23.1.5" type="device">
+<mxfile host="app.diagrams.net" modified="2024-02-22T13:47:40.582Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36" etag="oORBahWbWR_xRtPbpQsY" version="23.1.4" type="device">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
-    <mxGraphModel dx="706" dy="556" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1005" dy="592" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-0" />
         <mxCell id="WIyWlLk6GJQsqaUBKTNV-1" parent="WIyWlLk6GJQsqaUBKTNV-0" />
-        <mxCell id="rkIwhC8510pZdrh16rV0-28" value="&lt;h1&gt;Get a Game from its Id&lt;/h1&gt;&lt;p&gt;Input: GameId&lt;/p&gt;&lt;p&gt;PK: Games&lt;br&gt;SK: GameId&lt;br&gt;&lt;br&gt;Returns the game&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="10" y="430" width="530" height="150" as="geometry" />
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-0" value="PK: Users&lt;br&gt;SK: MetaUserName" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="530" y="420" width="160" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="rkIwhC8510pZdrh16rV0-24" value="&lt;h1&gt;DB - Default PK-SK&lt;/h1&gt;&lt;p&gt;&lt;u&gt;Users POV&lt;/u&gt;&lt;/p&gt;&lt;p&gt;PK: Users&lt;br&gt;SK: MetaUserName&lt;/p&gt;&lt;p&gt;&lt;u&gt;Games POV&lt;/u&gt;&lt;/p&gt;&lt;p&gt;PK: Games&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;SK: GameId&lt;/p&gt;&lt;p&gt;&lt;u&gt;GameUsers POV&lt;/u&gt;&lt;/p&gt;&lt;p&gt;PK: UserGame&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;SK: GameName_UserId&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="10" y="40" width="230" height="240" as="geometry" />
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-1" value="PK: Games&lt;br&gt;SK: GamesId" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="530" y="250" width="160" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="rkIwhC8510pZdrh16rV0-26" value="&lt;h1&gt;Search a Game for Referral&lt;/h1&gt;&lt;p&gt;Input: GameName&lt;/p&gt;&lt;p&gt;PK: GameName&lt;br&gt;SK:&amp;nbsp;&lt;br&gt;&lt;br&gt;Returns a list, select a random MetaUserName + GameId&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="10" y="290" width="560" height="140" as="geometry" />
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-2" value="PK: UserGame&lt;br&gt;SK: GameName_UserId" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="530" y="330" width="160" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="rkIwhC8510pZdrh16rV0-27" value="&lt;h1&gt;How to get a Referral for a Device&lt;/h1&gt;&lt;p&gt;PK: Users&lt;br&gt;SK:&amp;nbsp;&lt;br&gt;&lt;br&gt;Returns a list, select a random MetaUserName&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" parent="WIyWlLk6GJQsqaUBKTNV-1" vertex="1">
-          <mxGeometry x="10" y="590" width="500" height="120" as="geometry" />
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-3" value="PK: Games&lt;br&gt;GameName: GameName&lt;br&gt;Index: GameNameIndex" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="530" y="170" width="160" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="suIRJ4DSS3fGlgf8Qun_-49" value="&lt;h1&gt;DB - LSI - GameIdIndex&lt;/h1&gt;&lt;p&gt;PK: Games&lt;br style=&quot;border-color: var(--border-color);&quot;&gt;SK: GameName&lt;/p&gt;" style="text;html=1;spacing=5;spacingTop=-20;whiteSpace=wrap;overflow=hidden;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
-          <mxGeometry x="240" y="40" width="410" height="90" as="geometry" />
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="t_hxjdLGudmmIQgShQ-Z-5" target="t_hxjdLGudmmIQgShQ-Z-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-5" value="SearchGame&lt;br&gt;input: GameName&lt;br&gt;output: Game[]" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="t_hxjdLGudmmIQgShQ-Z-6" target="t_hxjdLGudmmIQgShQ-Z-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="240" />
+              <mxPoint x="420" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-6" value="GetGame&lt;br&gt;input: GameId&lt;br&gt;output: Game" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="210" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="t_hxjdLGudmmIQgShQ-Z-7" target="t_hxjdLGudmmIQgShQ-Z-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="320" />
+              <mxPoint x="420" y="280" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-7" value="GetGamesByIds&lt;br&gt;input: GameId[]&lt;br&gt;output: Game[]" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="290" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="t_hxjdLGudmmIQgShQ-Z-8" target="t_hxjdLGudmmIQgShQ-Z-2">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="400" />
+              <mxPoint x="420" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-8" value="GetUsersByGame&lt;br&gt;input: GameId&lt;br&gt;output: User[]" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="t_hxjdLGudmmIQgShQ-Z-9" target="t_hxjdLGudmmIQgShQ-Z-0">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-9" value="GetUsers&lt;br&gt;input:&amp;nbsp;&lt;br&gt;output: User[]" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="450" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-10" value="&lt;font style=&quot;font-size: 30px;&quot;&gt;Access Patterns&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="475" y="80" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-11" value="&lt;font style=&quot;font-size: 30px;&quot;&gt;Queries&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="160" y="80" width="270" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="WIyWlLk6GJQsqaUBKTNV-1" source="t_hxjdLGudmmIQgShQ-Z-17" target="t_hxjdLGudmmIQgShQ-Z-18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-17" value="GetPendingGames&lt;br&gt;input:&amp;nbsp;&lt;br&gt;output: PendinGame[]" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="240" y="530" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="t_hxjdLGudmmIQgShQ-Z-18" value="PK: Pending" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+          <mxGeometry x="530" y="530" width="160" height="60" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

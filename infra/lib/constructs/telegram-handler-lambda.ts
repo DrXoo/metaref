@@ -4,7 +4,6 @@ import { Code, Runtime, Function } from 'aws-cdk-lib/aws-lambda';
 import { Queue } from "aws-cdk-lib/aws-sqs";
 
 export interface TelegramHandlerLambdaProps {
-    queue: Queue
     table: Table
 }
 
@@ -24,11 +23,9 @@ export class TelegramHandlerLambda extends Construct {
               TOKEN: process.env.TOKEN!,
               DB_TABLE_NAME: props.table.tableName!,
               REGION: process.env.REGION!,
-              QUEUE_URL: props.queue.queueUrl
             },
           });
 
-        props.queue.grantSendMessages(this.lambda);
         props.table.grantReadWriteData(this.lambda);
     }
 }
