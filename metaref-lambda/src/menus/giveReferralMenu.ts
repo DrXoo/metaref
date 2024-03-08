@@ -13,14 +13,14 @@ export class GiveReferralMenu extends InteractionMenu {
         super(i18n);
 
         bot.action('give_device_referral', async (ctx) => {
-            await ctx.editMessageText(this.translate(ctx, 'giveDeviceReferral'), 
+            await ctx.editMessageText(this.translate(ctx, 'give.device.text'), 
                 { ...Markup.inlineKeyboard([Markup.button.callback(this.translate(ctx, 'button.return'), 'give_referral'),])});
 
             this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!, { referralType: ReferralType.DEVICE.toString() })
         });
 
         bot.action('give_app_referral', async (ctx) => {
-            await ctx.editMessageText(this.translate(ctx, 'giveGamesReferral'), 
+            await ctx.editMessageText(this.translate(ctx, 'give.games.text'), 
                 { ...Markup.inlineKeyboard([Markup.button.callback(this.translate(ctx, 'button.return'), 'give_referral'),])});
 
             this.setToListenMessage(ctx.chat?.id!, ctx.callbackQuery?.message?.message_id!, { referralType: ReferralType.APP.toString() })
@@ -29,7 +29,7 @@ export class GiveReferralMenu extends InteractionMenu {
         bot.action('give_referral', async (ctx) => {
             this.clearListenMessage(ctx.chat?.id!);
             
-            await ctx.editMessageText(this.translate(ctx, 'giveReferral'), {
+            await ctx.editMessageText(this.translate(ctx, 'give.text'), {
                 ...Markup.inlineKeyboard([[
                     Markup.button.callback(this.translate(ctx, 'button.device'), 'give_device_referral'),
                     Markup.button.callback(this.translate(ctx, 'button.games'), 'give_app_referral'),
@@ -48,13 +48,13 @@ export class GiveReferralMenu extends InteractionMenu {
                 var result = await createUser(userName);
 
                 if(result) {
-                    await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'addedDeviceReferral', { userName }));
+                    await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.device.added', { userName }));
                 }else {
-                    await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'alreadyAddedDeviceReferral'));
+                    await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.device.alreadyAdded'));
                 }
             }
             else {
-                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'wrongFormat'));
+                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.device.wrongFormat'));
             }
         } else if (data?.referralType == ReferralType.APP.toString()) {
             const urls = text.match(this.urlRegex);
@@ -79,9 +79,9 @@ export class GiveReferralMenu extends InteractionMenu {
                     await createPendingGames(urlsForNonExistingGames);
                 }
             
-                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'addedGamesReferral', { games: gameReferrals.length}));
+                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.games.added', { games: gameReferrals.length}));
             } else {
-                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'noFoundGames'));
+                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.games.noFoundGames'));
             }
         }
     }
