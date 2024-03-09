@@ -8,6 +8,7 @@ import { InfoMenu } from './menus/infoMenu';
 import { es_translations } from './i18n/es';
 import { en_translations } from './i18n/en';
 import i18next from 'i18next';
+import { InstructionsMenu } from './menus/instructionsMenu';
 
 const bot = new Telegraf(process.env.TOKEN!, { telegram: { webhookReply: true }});
 
@@ -28,6 +29,7 @@ new StartMenu(bot, i18next);
 const giveReferralMenu = new GiveReferralMenu(bot, i18next);
 const requestReferralMenu = new RequestReferralMenu(bot, i18next);
 new InfoMenu(bot, i18next);
+new InstructionsMenu(bot, i18next);
 
 bot.on("text", async (ctx) => {          
     await requestReferralMenu.onMessage(ctx, ctx.message.text);
