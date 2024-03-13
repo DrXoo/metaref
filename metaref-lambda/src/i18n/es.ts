@@ -40,7 +40,7 @@ export const es_translations = {
         "text": "📤 Ha seleccionado dar referidos.\n\nEste apartado está destinado a que pueda registrar sus enlaces para poder darlos a futuras personas que pidan referidos de las aplicaciones que nos proporcione.\n\nA continuación, seleccione si desea dar referido de visor o de aplicaciones.",
         "games": {
             "text": "⬇️ Pegue los enlaces de sus aplicaciones de Meta ⬇️",
-            "added": "❇️ Se detectaron {{games}} aplicaciones. ❇️Se detectaron  aplicaciones.\n\n⚠️ El proceso de agregar cada aplicación tarda un poco y es un proceso indirecto.\n\nPuede user el bot normalmente",
+            "added": "❇️ Se detectaron {{games}} aplicaciones. ❇️\n\n⚠️ El proceso de agregar cada aplicación tarda un poco y es un proceso indirecto.\n\nPuede user el bot normalmente",
             "noFoundGames": "⚠️No se detectaron aplicaciones en los enlaces",
         },
         "device": {
