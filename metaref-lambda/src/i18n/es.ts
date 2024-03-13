@@ -12,7 +12,8 @@ export const es_translations = {
             "give": "📤 Dar",
             "request": "Pedir 📥",
             "info": "💬 Información 💬",
-            "instructions": "📄 Instrucciones 📄"
+            "instructions": "📄 Instrucciones 📄",
+            "support": "🔧 Soporte 🔧"
         }
     },
     "info": {
@@ -43,7 +44,7 @@ export const es_translations = {
             "noFoundGames": "⚠️No se detectaron aplicaciones en los enlaces",
         },
         "device": {
-            "text": "⬇️ Escriba su nombre de usuario de Meta ⬇️",
+            "text": "⬇️ Pegue su enlace de referido de Meta directamente desde su aplicación oficial ⬇️",
             "added": "✅ Referido de visor del usuario {{userName}} ha sido añadido.",
             "alreadyAdded": "⚠️ Usuario ya agregado.",
             "wrongFormat": "❌ Formato incorrecto.",

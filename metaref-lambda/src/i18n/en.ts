@@ -12,7 +12,8 @@ export const en_translations = {
             "give": "Give",
             "request": "Request",
             "info": "Information",
-            "instructions": "Instructions"
+            "instructions": "Instructions",
+            "support": "Support"
         }
     },
     "info": {
