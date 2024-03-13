@@ -19,7 +19,7 @@ export class StartMenu extends Menu {
 
     private menuUI : (ctx: Context) => { text: string, properties: { parse_mode?: ParseMode | undefined }} = (ctx: Context) => {
         return { text: this.translate(ctx,'start.text', { userName: ctx.from?.first_name}), properties: {
-            parse_mode: 'MarkdownV2',
+            parse_mode: 'HTML',
             ...Markup.inlineKeyboard([[
                 Markup.button.callback(this.translate(ctx,'start.button.give'), 'give_referral'),
                 Markup.button.callback(this.translate(ctx,'start.button.request'), 'request_referral'),

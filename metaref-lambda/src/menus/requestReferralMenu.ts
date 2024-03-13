@@ -13,7 +13,8 @@ export class RequestReferralMenu extends InteractionMenu {
             var randomUser = await getRandomUser();
             await ctx.editMessageText(this.translate(ctx, 'request.device.deviceReferral', { url: buildDeviceUrl(randomUser!.userName), interpolation: {escapeValue: false} }), {
                 ...Markup.inlineKeyboard([
-                  Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral')
+                  Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral'),
+                  Markup.button.callback(this.translate(ctx, 'button.returnStart'), 'return_start')
                 ]),
             });
         });

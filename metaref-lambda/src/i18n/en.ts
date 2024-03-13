@@ -7,7 +7,7 @@ export const en_translations = {
         "return": "Return"
     },
     "start": {
-        "text": "👋🏻 Hello {{userName}}.\n\nWelcome to the Meta referral bot. This bot is a third-party bot with no affiliation with the Meta company. Its goal is to give and receive referrals randomly and fairly for everyone.\n\n💎 Select Information if you want to learn more about the Meta referral program.\n\nIf you are already informed, choose the option that best suits you.",
+        "text": "👋🏻 Hello {{userName}}\\.\n\nWelcome to the Meta referral bot\\. This bot is a third-party bot with no affiliation with the Meta company\\. Its goal is to give and receive referrals randomly and fairly for everyone\\.\n\n💎 Select Information if you want to learn more about the Meta referral program\\.\n\nIf you are already informed, choose the option that best suits you\\.",
         "button": {
             "give": "Give",
             "request": "Request",

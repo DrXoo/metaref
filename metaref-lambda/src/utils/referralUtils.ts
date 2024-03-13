@@ -16,6 +16,10 @@ export function normalizeGameNameText(rawText: string) : string{
 }
 
 export function parseDeviceLink(link: string) : string | undefined {
+    if(!link.includes('referrals/link')) {
+        return undefined;
+    }
+    
     if(!URL.canParse(link)) {
         return undefined;
     }

@@ -1,6 +1,6 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { ReferralType } from "../models/referralType";
-import { buildAppUrl, parseGameLink } from "../utils/referralUtils";
+import { buildAppUrl, parseDeviceLink, parseGameLink } from "../utils/referralUtils";
 import { createUser } from "../aws/db/user-repository";
 import { assignUsers, createPendingGame as createPendingGames, getGamesByIdsBatch } from "../aws/db/game-repository";
 import { InteractionMenu } from "./abstracts/interactionMenu";
@@ -43,8 +43,8 @@ export class GiveReferralMenu extends InteractionMenu {
     public async manageOnMessage(context: Context, messageId: number, text: string, data?: Record<string, string>)
     {
         if(data?.referralType == ReferralType.DEVICE.toString()) {
-            const userName = text.trim();
-            if(userName.length > 0 && !userName.includes(" ")) {
+            const userName = parseDeviceLink(text.trim());
+            if(userName && userName.length > 0 && !userName.includes(" ")) {
                 var result = await createUser(userName);
 
                 if(result) {
