@@ -60,26 +60,31 @@ export class GiveReferralMenu extends InteractionMenu {
             const urls = text.match(this.urlRegex);
 
             if (urls && urls.length > 0) {
-                const gameReferrals = urls.map(url => parseGameLink(url));
+                if(urls.length >= 20) {
+                    await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.games.tooManyUrls'));
+                } 
+                else {
+                    const gameReferrals = urls.map(url => parseGameLink(url));
 
-                const existingGames = await getGamesByIdsBatch(gameReferrals.map(x => x.gameId!)); 
-                const existingGameIds = existingGames.map(x => x.gameId);
-                await assignUsers(gameReferrals.filter(x => existingGameIds.includes(x.gameId)));
-
-                const nonExistingGames = gameReferrals.filter(x => !existingGameIds.includes(x.gameId!));
-                const urlsForNonExistingGames = nonExistingGames.map(x => {
-                    return {
-                        gameId: x.gameId,
-                        userName: x.userName,
-                        url: buildAppUrl(x.userName!, x.gameId!)
+                    const existingGames = await getGamesByIdsBatch(gameReferrals.map(x => x.gameId!)); 
+                    const existingGameIds = existingGames.map(x => x.gameId);
+                    await assignUsers(gameReferrals.filter(x => existingGameIds.includes(x.gameId)));
+    
+                    const nonExistingGames = gameReferrals.filter(x => !existingGameIds.includes(x.gameId!));
+                    const urlsForNonExistingGames = nonExistingGames.map(x => {
+                        return {
+                            gameId: x.gameId,
+                            userName: x.userName,
+                            url: buildAppUrl(x.userName!, x.gameId!)
+                        }
+                    })
+                    
+                    if(urlsForNonExistingGames.length > 0) {
+                        await createPendingGames(urlsForNonExistingGames);
                     }
-                })
                 
-                if(urlsForNonExistingGames.length > 0) {
-                    await createPendingGames(urlsForNonExistingGames);
+                    await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.games.added', { games: gameReferrals.length}));
                 }
-            
-                await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.games.added', { games: gameReferrals.length}));
             } else {
                 await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.games.noFoundGames'));
             }

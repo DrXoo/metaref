@@ -18,7 +18,7 @@ export class WebScrapperLambda extends Construct {
         // Create an Event Rule with a cron expression
         const rule = new Rule(this, 'CallScrapperLambdaSchedule', {
           ruleName: 'CallScrapperLambdaSchedule',
-          schedule: Schedule.expression('rate(5 minutes)'),
+          schedule: Schedule.expression('rate(1 minute)'),
         });
 
         const lambda = new Function(scope, 'WebScrapperLambda', {
@@ -29,7 +29,8 @@ export class WebScrapperLambda extends Construct {
             timeout: Duration.seconds(15),
             environment: {
               DB_TABLE_NAME: props.table.tableName!,
-              REGION: process.env.REGION!
+              REGION: process.env.REGION!,
+              NUM_PENDING_GAMES: '1'
             },
           });
 

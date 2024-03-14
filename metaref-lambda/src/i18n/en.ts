@@ -34,6 +34,7 @@ export const en_translations = {
         },
         "device": {
             "deviceReferral": "Here is your device referral.\n\n{{url}}",
+            "noUsers": "⚠️ Couldn't find any user."
         }
     },
     "give": {

@@ -34,14 +34,16 @@ export const es_translations = {
         },
         "device": {
             "deviceReferral": "✅ Aquí tiene su referido. ✅\n\n{{url}}",
+            "noUsers": "⚠️ No pude encontrar ningún usuario."
         }
     },
     "give": {
         "text": "📤 Ha seleccionado dar referidos.\n\nEste apartado está destinado a que pueda registrar sus enlaces para poder darlos a futuras personas que pidan referidos de las aplicaciones que nos proporcione.\n\nA continuación, seleccione si desea dar referido de visor o de aplicaciones.",
         "games": {
-            "text": "⬇️ Pegue los enlaces de sus aplicaciones de Meta ⬇️",
+            "text": "⬇️ Pegue hasta 20 enlaces de sus aplicaciones de Meta ⬇️",
             "added": "❇️ Se detectaron {{games}} aplicaciones. ❇️\n\n⚠️ El proceso de agregar cada aplicación tarda un poco y es un proceso indirecto.\n\nPuede user el bot normalmente",
             "noFoundGames": "⚠️No se detectaron aplicaciones en los enlaces",
+            "tooManyUrls": "❌ Has introducido más de 20 enlaces"
         },
         "device": {
             "text": "⬇️ Pegue su enlace de referido de Meta directamente desde su aplicación oficial ⬇️",

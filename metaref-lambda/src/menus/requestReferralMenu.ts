@@ -11,12 +11,22 @@ export class RequestReferralMenu extends InteractionMenu {
 
         bot.action('request_device_referral', async (ctx) => {
             var randomUser = await getRandomUser();
-            await ctx.editMessageText(this.translate(ctx, 'request.device.deviceReferral', { url: buildDeviceUrl(randomUser!.userName), interpolation: {escapeValue: false} }), {
-                ...Markup.inlineKeyboard([
-                  Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral'),
-                  Markup.button.callback(this.translate(ctx, 'button.returnStart'), 'return_start')
-                ]),
-            });
+            if(!randomUser) {
+                await ctx.editMessageText(this.translate(ctx, 'request.device.noUsers'), {
+                    ...Markup.inlineKeyboard([
+                      Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral'),
+                      Markup.button.callback(this.translate(ctx, 'button.returnStart'), 'return_start')
+                    ]),
+                });
+            }
+            else {
+                await ctx.editMessageText(this.translate(ctx, 'request.device.deviceReferral', { url: buildDeviceUrl(randomUser!.userName), interpolation: {escapeValue: false} }), {
+                    ...Markup.inlineKeyboard([
+                      Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral'),
+                      Markup.button.callback(this.translate(ctx, 'button.returnStart'), 'return_start')
+                    ]),
+                });
+            }
         });
 
         bot.action('request_game_referral', async (ctx) => {
