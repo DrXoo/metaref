@@ -18,6 +18,11 @@ exports.handler = async (event, context, callback) => {
 
             if(!existingGameName) {
                 const gameName = await extractGameName(data.url);
+                if(await isRiftGame(data.gameId))
+                {
+                    gameName = gameName + ' (Rift)';
+                }
+
                 console.log(`Web scrapped Game Name: ${gameName}`)
                 await db.createGame(data.gameId, gameName, data.createdOn);
             }
@@ -38,3 +43,15 @@ async function extractGameName(url) {
     return title.split('off')[1].split('|')[0].trim();
 }
 
+async function isRiftGame(gameId) {
+    const response = await axios.get(`https://www.meta.com/es-es/experiences/${gameId}/`);
+    const html = response.data;
+    const $ = cheerio.load(html);
+
+    const title = $('title').text();
+
+    if(title.includes('Rift')) {
+        return true;
+    }
+    return false;
+}
