@@ -17,7 +17,7 @@ exports.handler = async (event, context, callback) => {
             console.log(`Existing Game Name: ${existingGameName}`);
 
             if(!existingGameName) {
-                const gameName = await extractGameName(data.url);
+                let gameName = await extractGameName(data.url);
                 if(await isRiftGame(data.gameId))
                 {
                     gameName = gameName + ' (Rift)';
