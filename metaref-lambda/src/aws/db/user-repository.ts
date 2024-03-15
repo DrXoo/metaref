@@ -26,7 +26,7 @@ export async function getRandomUser(): Promise<User | null> {
     return users[randomIndex];
 }
 
-export async function createUser(userName: string) : Promise<boolean> {
+export async function createUser(userName: string, externalUserId: number) : Promise<boolean> {
     var existingUser = await getUser(userName);
 
     if(existingUser!=null) {
@@ -37,11 +37,34 @@ export async function createUser(userName: string) : Promise<boolean> {
         TableName: tableName,
         Item: {
             pk: { S: 'Users'},
-            sk: { S: userName }
+            sk: { S: userName },
+            ExternalUserId : { N: externalUserId.toString() }
         }
     });
 
     return true;
+}
+
+export async function getUserByExternalUserId(externalUserId: number) : Promise<User | null> {
+    const response = await client.query({
+        TableName: tableName,
+        IndexName: 'ExternalUserIdIndex',
+        KeyConditionExpression: 'pk = :pk AND ExternalUserId = :externalUserId',
+        ExpressionAttributeValues: {
+            ':pk': { S: 'Users' },
+            ':externalUserId': { N: externalUserId.toString() },
+        }
+    });
+
+    var users = response.Items?.map(x => { return {
+        userName: x['sk'].S
+    } as User});
+
+    if (users == null || users.length === 0) {
+        return null;
+    }
+
+    return users[0]
 }
 
 async function getUser(userName: string): Promise<User | null> {

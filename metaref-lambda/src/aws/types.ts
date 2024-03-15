@@ -1,6 +1,7 @@
 export interface Game {
     gameId: string;
     gameName: string;
+    rawGameName: string;
 }
   
 export interface User {

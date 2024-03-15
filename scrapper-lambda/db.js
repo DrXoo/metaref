@@ -42,13 +42,14 @@ async function createGame(gameId, gameName, createdOn) {
     }
 }
 
-async function assignUser(gameId, userName) {
+async function assignUser(gameId, userName, externalUserId) {
     try {
         await client.putItem({
             TableName: tableName,
             Item: {
                 'pk': { S: 'UserGame' },
-                'sk': { S: `${gameId}_${userName}` }
+                'sk': { S: `${gameId}_${userName}` },
+                'ExternalUserId': { N: externalUserId.toString() }
             }
         });
     } catch (error) {
@@ -77,7 +78,7 @@ async function getPendingGames() {
         ExpressionAttributeValues: {
         ':pk': { S: 'Pending' },
         },
-        ProjectionExpression: 'GameId, GameUrl, UserName, CreatedOn',
+        ProjectionExpression: 'GameId, GameUrl, UserName, CreatedOn, TelegramUserId',
         ScanIndexForward: true, // Order by CreatedOn in ascending order
         Limit: Number.parseInt(numberPendingGames), // Take X elements only
     };
@@ -98,7 +99,8 @@ async function getPendingGames() {
                 gameId: x['GameId'].S,
                 userName: x['UserName'].S,
                 url: x['GameUrl'].S,
-                createdOn: x['CreatedOn'].S
+                createdOn: x['CreatedOn'].S,
+                externalUserId: x['TelegramUserId'].N
             }
         })
     } catch (error) {

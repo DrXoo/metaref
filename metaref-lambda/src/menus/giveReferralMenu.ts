@@ -45,7 +45,7 @@ export class GiveReferralMenu extends InteractionMenu {
         if(data?.referralType == ReferralType.DEVICE.toString()) {
             const userName = parseDeviceLink(text.trim());
             if(userName && userName.length > 0 && !userName.includes(" ")) {
-                var result = await createUser(userName);
+                var result = await createUser(userName, context.from?.id!);
 
                 if(result) {
                     await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.device.added', { userName }));
@@ -64,11 +64,12 @@ export class GiveReferralMenu extends InteractionMenu {
                     await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.games.tooManyUrls'));
                 } 
                 else {
+                    const userId = context.from?.id!; 
                     const gameReferrals = urls.map(url => parseGameLink(url));
 
                     const existingGames = await getGamesByIdsBatch(gameReferrals.map(x => x.gameId!)); 
                     const existingGameIds = existingGames.map(x => x.gameId);
-                    await assignUsers(gameReferrals.filter(x => existingGameIds.includes(x.gameId)));
+                    await assignUsers(gameReferrals.filter(x => existingGameIds.includes(x.gameId)), userId);
     
                     const nonExistingGames = gameReferrals.filter(x => !existingGameIds.includes(x.gameId!));
                     const urlsForNonExistingGames = nonExistingGames.map(x => {
@@ -77,10 +78,10 @@ export class GiveReferralMenu extends InteractionMenu {
                             userName: x.userName,
                             url: buildAppUrl(x.userName!, x.gameId!)
                         }
-                    })
-                    
+                    });
+
                     if(urlsForNonExistingGames.length > 0) {
-                        await createPendingGames(urlsForNonExistingGames);
+                        await createPendingGames(urlsForNonExistingGames, userId);
                     }
                 
                     await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.games.added', { games: gameReferrals.length}));

@@ -23,7 +23,9 @@ export class StartMenu extends Menu {
             ...Markup.inlineKeyboard([[
                 Markup.button.callback(this.translate(ctx,'start.button.give'), 'give_referral'),
                 Markup.button.callback(this.translate(ctx,'start.button.request'), 'request_referral'),
-            ], [ Markup.button.callback(this.translate(ctx,'start.button.info'), 'information') ],
+            ],
+            [ Markup.button.callback(this.translate(ctx,'start.button.profile'), 'profile') ],
+            [ Markup.button.callback(this.translate(ctx,'start.button.info'), 'information') ],
             [ Markup.button.callback(this.translate(ctx,'start.button.instructions'), 'instructions') ], 
             [ Markup.button.url(this.translate(ctx, 'start.button.support'), 'https://t.me/metaref_support')]]),
         }}

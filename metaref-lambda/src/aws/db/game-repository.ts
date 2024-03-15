@@ -29,6 +29,35 @@ export async function searchGame(gameName: string): Promise<Game[]> {
     });
 }
 
+export async function getAllGamesByUser(externalUserId: number): Promise<Game[]> {
+    const response = await client.query({
+        TableName: tableName,
+        IndexName: 'ExternalUserIdIndex',
+        KeyConditionExpression: 'pk= :pk AND ExternalUserId = :externalUserId',
+        ExpressionAttributeValues: {
+            ':pk' : { S: 'UserGame' },
+            ':externalUserId': { N: externalUserId.toString() }
+        },
+        ProjectionExpression: 'sk',
+    });
+
+    if(response.Items == undefined || response.Items.length == 0) {
+        return [];
+    }
+
+    const gameIds = response.Items.map(x => x['sk'].S?.split('_')[0]!);
+    const batchLength = 20;
+    let result : Game[] = [];
+    for (let i = 0; i < gameIds.length; i += batchLength) {
+        const groupGameIds = gameIds.slice(i, i + batchLength);
+
+        const games = await getGamesByIdsBatch(groupGameIds);
+        result.push(...games);
+    }
+
+    return result;
+}
+
 export async function getGamesByIdsBatch(gameIds: string[]) : Promise<Game[]> {
     try {
         const result = await client.batchGetItem({
@@ -51,6 +80,7 @@ export async function getGamesByIdsBatch(gameIds: string[]) : Promise<Game[]> {
             return {
                 gameId: item['sk'].S,
                 gameName: item['GameName'].S,
+                rawGameName: item['RawGameName'].S
             } as Game
         })
     } catch (error) {
@@ -79,7 +109,7 @@ export async function getUsersForGame(gameId: string) : Promise<User[]> {
     })
 }
 
-export async function createPendingGame(pendingGames: {gameId: string, userName: string, url: string}[]) : Promise<boolean> {
+export async function createPendingGame(pendingGames: {gameId: string, userName: string, url: string}[], telegramUserId: number) : Promise<boolean> {
     try {
         await client.batchWriteItem({
             RequestItems: {
@@ -92,7 +122,8 @@ export async function createPendingGame(pendingGames: {gameId: string, userName:
                                 'GameId': { S: x.gameId },
                                 'UserName': { S: x.userName},
                                 'GameUrl': { S: x.url },
-                                'CreatedOn': { S: new Date().toISOString() }
+                                'CreatedOn': { S: new Date().toISOString() },
+                                'TelegramUserId': { N: telegramUserId.toString() }
                             }
                         }
                     }
@@ -108,7 +139,7 @@ export async function createPendingGame(pendingGames: {gameId: string, userName:
 
 }
 
-export async function assignUsers( gameUsers: GameUser[] ) {
+export async function assignUsers( gameUsers: GameUser[], externalUserId : number ) {
     if(gameUsers.length == 0){
         return;
     }
@@ -121,7 +152,8 @@ export async function assignUsers( gameUsers: GameUser[] ) {
                         PutRequest: {
                             Item: {
                                 'pk': { S: 'UserGame' },
-                                'sk': { S: `${x.gameId}_${x.userName}` }
+                                'sk': { S: `${x.gameId}_${x.userName}` },
+                                'ExternalUserId':  { N: externalUserId.toString() }
                             }
                         }
                     }

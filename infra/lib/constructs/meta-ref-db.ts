@@ -20,5 +20,10 @@ export class MetaRefDb extends Construct {
             indexName: 'GameNameIndex',
             sortKey: { name: 'GameName', type: AttributeType.STRING },
         });
+
+        this.table.addLocalSecondaryIndex({
+            indexName: 'ExternalUserIdIndex',
+            sortKey: { name: 'ExternalUserId', type: AttributeType.NUMBER },
+        });
     }
 }

@@ -27,7 +27,7 @@ exports.handler = async (event, context, callback) => {
                 await db.createGame(data.gameId, gameName, data.createdOn);
             }
 
-            await db.assignUser(data.gameId, data.userName);
+            await db.assignUser(data.gameId, data.userName, data.externalUserId);
             await db.deletePendingGame(data.url);
         }
     } else {
