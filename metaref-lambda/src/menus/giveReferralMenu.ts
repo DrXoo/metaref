@@ -60,7 +60,7 @@ export class GiveReferralMenu extends InteractionMenu {
             const urls = text.match(this.urlRegex);
 
             if (urls && urls.length > 0) {
-                if(urls.length >= 20) {
+                if(urls.length > 20) {
                     await this.editMessageAtManageMessage(context, messageId, this.translate(context, 'give.games.tooManyUrls'));
                 } 
                 else {
