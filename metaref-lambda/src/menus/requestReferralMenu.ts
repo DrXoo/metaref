@@ -1,6 +1,6 @@
 import { Context, Markup, Telegraf } from "telegraf";
 import { getUsersForGame, searchGame } from "../aws/db/game-repository";
-import { getRandomUser } from "../aws/db/user-repository";
+import { getAllUsers } from "../aws/db/user-repository";
 import { buildAppUrl, buildDeviceUrl, normalizeGameNameText } from "../utils/referralUtils";
 import { InteractionMenu } from "./abstracts/interactionMenu";
 
@@ -10,8 +10,9 @@ export class RequestReferralMenu extends InteractionMenu {
         super(i18n);
 
         bot.action('request_device_referral', async (ctx) => {
-            var randomUser = await getRandomUser();
-            if(!randomUser) {
+            var users = await getAllUsers();
+       
+            if(users.length == 0) {
                 await ctx.editMessageText(this.translate(ctx, 'request.device.noUsers'), {
                     ...Markup.inlineKeyboard([
                       Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral'),
@@ -20,7 +21,14 @@ export class RequestReferralMenu extends InteractionMenu {
                 });
             }
             else {
-                await ctx.editMessageText(this.translate(ctx, 'request.device.deviceReferral', { url: buildDeviceUrl(randomUser!.userName), interpolation: {escapeValue: false} }), {
+                // Select a random user
+                const randomUser = users[Math.floor(Math.random() * users.length)];
+                await ctx.editMessageText(this.translate(ctx, 'request.device.deviceReferral', 
+                { 
+                    url: buildDeviceUrl(randomUser!.userName), interpolation: {escapeValue: false},
+                    numUsers: users.length
+                }), {
+                    parse_mode: 'HTML',
                     ...Markup.inlineKeyboard([
                       Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral'),
                       Markup.button.callback(this.translate(ctx, 'button.returnStart'), 'return_start')
@@ -44,7 +52,12 @@ export class RequestReferralMenu extends InteractionMenu {
             const randomUserId = usersId[Math.floor(Math.random() * usersId.length)].userName
             const appReferral = buildAppUrl(randomUserId, data[1])
             await ctx.telegram.editMessageText(ctx.chat!.id, Number.parseInt(data[0]), undefined, 
-                this.translate(ctx, 'request.games.gameReferral', { url: appReferral , interpolation: {escapeValue: false}}), {
+                this.translate(ctx, 'request.games.gameReferral', 
+                { 
+                    url: appReferral , interpolation: {escapeValue: false},
+                    numUsers: usersId.length
+                }), {
+                    parse_mode: 'HTML',
                 ...Markup.inlineKeyboard([
                   Markup.button.callback(this.translate(ctx, 'button.return'), 'request_referral'),
                   Markup.button.callback(this.translate(ctx, 'button.returnStart'), 'return_start')

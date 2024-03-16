@@ -4,7 +4,7 @@ import { User } from "../types";
 const client = new DynamoDB({ region: process.env.REGION });
 const tableName = process.env.DB_TABLE_NAME!
   
-export async function getRandomUser(): Promise<User | null> {
+export async function getAllUsers(): Promise<User[]> {
     const result = await client.query({
         TableName: tableName,
         KeyConditionExpression: 'pk = :pk',
@@ -18,12 +18,10 @@ export async function getRandomUser(): Promise<User | null> {
     } as User});
 
     if (users == null || users.length === 0) {
-        return null;
+        return [];
     }
 
-    // Select a random user
-    const randomIndex = Math.floor(Math.random() * users.length);
-    return users[randomIndex];
+    return users;
 }
 
 export async function createUser(userName: string, externalUserId: number) : Promise<boolean> {

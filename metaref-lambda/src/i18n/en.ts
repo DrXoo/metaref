@@ -31,10 +31,10 @@ export const en_translations = {
             "requestGameReferral": "Enter the name of the game.",
             "foundRequestGames": "I found some apps with that name, choose yours.",
             "notFoundRequestGames": "I didn't find anything with that name.\n\nThis search engine is simple, type the beginning of the name.",
-            "gameReferral": "Here is the referral for the game you selected.\n\n{{url}}",
+            "gameReferral": "Here is the referral for the game you selected.\n <i>Got randomly from {{numUsers}} users</i>\n\n{{url}}",
         },
         "device": {
-            "deviceReferral": "Here is your device referral.\n\n{{url}}",
+            "deviceReferral": "Here is your device referral.\n<i>Got randomly from {{ numUsers }} users</i>\n\n{{url}}",
             "noUsers": "⚠️ Couldn't find any user."
         }
     },

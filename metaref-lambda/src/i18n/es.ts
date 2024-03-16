@@ -31,10 +31,10 @@ export const es_translations = {
             "requestGameReferral": "⬇️ Introduce el nombre de la aplicación ⬇️",
             "foundRequestGames": "❇️ He encontrado algunas aplicaciones con ese nombre, elije el tuyo",
             "notFoundRequestGames": "❌ No he encontrado nada con ese nombre.\n\n⚠️ Este motor de búsqueda es sencillo, escribe el comienzo del nombre.",
-            "gameReferral": "✅ Aquí está el referido para la aplicación que has seleccionado.\n\n{{url}}",
+            "gameReferral": "✅ Aquí está el referido para la aplicación que has seleccionado.\n<i>Obtenido aleatoriamente de {{numUsers}} usuarios</i>\n\n{{url}}",
         },
         "device": {
-            "deviceReferral": "✅ Aquí tiene su referido. ✅\n\n{{url}}",
+            "deviceReferral": "✅ Aquí tiene su referido. ✅\n<i>Obtenido aleatoriamente de {{numUsers}} usuarios</i>\n\n{{url}}",
             "noUsers": "⚠️ No pude encontrar ningún usuario."
         }
     },
