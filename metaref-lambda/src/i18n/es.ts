@@ -7,7 +7,7 @@ export const es_translations = {
         "return": "⬅️ Volver"
     },
     "start": {
-        "text": "👋🏻 Hola {{userName}}.\n\nBienvenido al bot de referidos de Meta, un gestor de referidos de aplicaciones y visores totalmente aleatorio y justo para todos.\n\n💎 Seleccione Información si desea leer más sobre el programa de referidos de Meta.\n\n⚠️ <i>Este bot no tienen ninguna afiliación con la empresa Meta y ha sido creado por DrXoo y Truenox para el disfrute de la comunidad.</i>\n\n🚨 <i>¿Quieres hablar de VR o cualquier otro ámbito de la tecnología? Únete a la mejor comunidad tech:</i>\n <a href='https://t.me/truenoxtech'>TruenoxTech</a>",
+        "text": "👋🏻 Hola {{userName}}.\n\nBienvenido al bot de referidos de Meta, un gestor de referidos de aplicaciones y visores <strong>totalmente aleatorio</strong> y justo para todos.\n\n💎 Seleccione Información si desea leer más sobre el programa de referidos de Meta.\n\n⚠️ <i>Este bot no tienen ninguna afiliación con la empresa Meta y ha sido creado por DrXoo y Truenox para el disfrute de la comunidad.</i>\n\n🚨 <i>¿Quieres hablar de VR o cualquier otro ámbito de la tecnología? Únete a la mejor comunidad tech:</i>\n <a href='https://t.me/truenoxtech'>TruenoxTech</a>",
         "button": {
             "profile": "📈 Mis Referidos 📈",
             "give": "📤 Dar",
