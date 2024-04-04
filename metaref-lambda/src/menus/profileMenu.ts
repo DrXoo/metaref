@@ -27,18 +27,36 @@ export class ProfileMenu extends Menu {
                     .map(x => x.rawGameName)
                     .sort()
                     .map(x => `- ${x}\n`)
-                    .join('');
-    
-                await ctx.editMessageText(this.translate(ctx, 'profile.text', 
-                    { userName: existingUser?.userName, games: gameNames}), {
-                    parse_mode: 'HTML',
-                    ...Markup.inlineKeyboard([
-                        [Markup.button.callback(this.translate(ctx, 'button.return'), 'return_start')]
-                    ]),
-                }); 
+                    .join('');                
+
+                // TODO: IMPROVE THIS
+                if(gameNames.length > 4000) {
+                    const lastGameIndex = gameNames.indexOf('-', 3500);
+                    const firstPart = gameNames.substring(0, lastGameIndex - 1);
+                    const secondPart = gameNames.substring(lastGameIndex, gameNames.length);
+
+                    await ctx.editMessageText(this.translate(ctx, 'profile.text', 
+                        { userName: existingUser?.userName, games: firstPart}), {
+                        parse_mode: 'HTML'
+                    }); 
+
+                    await ctx.sendMessage(secondPart, {
+                        parse_mode: 'HTML',
+                        ...Markup.inlineKeyboard([
+                            [Markup.button.callback(this.translate(ctx, 'button.return'), 'return_start')]
+                        ]),
+                    }); 
+                    
+                } else {
+                    await ctx.editMessageText(this.translate(ctx, 'profile.text', 
+                        { userName: existingUser?.userName, games: gameNames}), {
+                        parse_mode: 'HTML',
+                        ...Markup.inlineKeyboard([
+                            [Markup.button.callback(this.translate(ctx, 'button.return'), 'return_start')]
+                        ]),
+                    }); 
+                }
             }
-
-
         })
     }
 }
